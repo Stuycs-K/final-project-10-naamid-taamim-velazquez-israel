@@ -21,6 +21,6 @@ found a place to install processing-java but it seems like that'll take .5 GB, w
 
 Doing some worksheet filling
 
-### date y
+### May 22, 2024 (HW)
 
-info
+Tried to figure out how to use processing-java in order to run processing from terminal?, which would be useful since then we can just tun it from a makefile (not much luck).
