@@ -8,6 +8,7 @@ I have finished clearing out my entire home directory. Firefox apparently took n
 I have made a tryhackme room and invited Taamim into it. Currently doesn't have much, but we're ready to work on it, and add the answers into the hints so it's not too hard
 We also have created a team name, previously I made it Tameal, but now we have instead gone for 'Isam'... Enjoy!
 Found some gifs on the internet to add to the project, trying to figure out how to install processing java
+added Processing-java
 
 ### date y
 
