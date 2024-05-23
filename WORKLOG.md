@@ -2,7 +2,7 @@
 
 ## GROUP MEMBER 1: Israel Velazquez Rugama
 
-### date 5/22/24
+### 5/22/24
 
 I have finished clearing out my entire home directory. Firefox apparently took nearly a full gigabyte in total and that was fun to clear
 I have made a tryhackme room and invited Taamim into it. Currently doesn't have much, but we're ready to work on it, and add the answers into the hints so it's not too hard
@@ -10,9 +10,10 @@ We also have created a team name, previously I made it Tameal, but now we have i
 Found some gifs on the internet to add to the project, trying to figure out how to install processing java
 added Processing-java
 
-### date y
+### 5/22/24 HW
 
-info
+updated Homework.md
+found a place to install processing-java but it seems like that'll take .5 GB, which only I can stomach before it makes our GB limit go above 1GB
 
 
 ## GROUP MEMBER 2: Taamim Naamid
@@ -21,6 +22,6 @@ info
 
 Doing some worksheet filling
 
-### date y
+### May 22, 2024 (HW)
 
-info
+Tried to figure out how to use processing-java in order to run processing from terminal?, which would be useful since then we can just tun it from a makefile (not much luck).
