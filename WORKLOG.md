@@ -31,3 +31,7 @@ Doing some worksheet filling
 ### May 22, 2024 (HW)
 
 Tried to figure out how to use processing-java in order to run processing from terminal?, which would be useful since then we can just tun it from a makefile (not much luck).
+
+### May 23, 2024
+
+Tried to work on getting processing-java and failed, the PATH is not PATH-ing even thought I added it to like .bashrc or something and failed, it works on windows though so maybe that means something / worth considering.
