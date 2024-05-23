@@ -15,6 +15,12 @@ added Processing-java
 updated Homework.md
 found a place to install processing-java but it seems like that'll take .5 GB, which only I can stomach before it makes our GB limit go above 1GB
 
+### 5/23/24 
+
+Delted Homework.md
+Struggled with Animation, and trying to figure out how to import a class even though it worked in my previous project
+I clapped loudly because it seemed like Mr K was trying to gather everyone's attentions and then people were still talking over him "Childreen should be seen not heard" was the phrase I heard him utter. So then my thought process was to gather everyone's attention to Mr K because he was prolly trying to tell us something and instead it seemed like I was being an idiot... Which I was lmao
+I've also attempted to figure out how to import libraries instead of doing an Animation class... This also failed on us. I'm not sure exactly how to continue honestly
 
 ## GROUP MEMBER 2: Taamim Naamid
 
