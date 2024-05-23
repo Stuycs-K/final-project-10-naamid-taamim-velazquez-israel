@@ -1,4 +1,4 @@
-import gifAnimation.*;
+
 
 import java.io.*;
 import java.util.*;
@@ -9,7 +9,6 @@ void setup() {
 }
 
 void draw() {
-  Animation a; 
-  a.Animation("gif", 3);
+  Animation a = new Animation("files", 3);
   
 }
