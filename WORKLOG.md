@@ -45,3 +45,7 @@ Tried to figure out how to use processing-java in order to run processing from t
 ### May 23, 2024
 
 Tried to work on getting processing-java and failed, the PATH is not PATH-ing even thought I added it to like .bashrc or something and failed, it works on windows though so maybe that means something / worth considering.
+
+### May 23, 2024 (HW)
+
+Trued to get processing-java to work again, but Ubuntu seems to be really averse to working the way I think it would. Supposedly just adding it to the PATH should work (did for windows at least) but Ubuntu really doesn't care about it (maybe my cmd was wrong or something? It is definitely added to thr PATH though).
