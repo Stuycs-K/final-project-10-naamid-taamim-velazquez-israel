@@ -9,6 +9,6 @@ void setup() {
 }
 
 void draw() {
-  Animation a = new Animation("files", 3);
+  
   
 }

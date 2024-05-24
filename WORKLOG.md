@@ -30,6 +30,10 @@ I have also discovered that the only way to work with gifs in processing is with
 This will be fun to consider the implications of. I'll try and find out if you can convert a gif into a the series of kmages that it is.
 otherwise there's almost no real way to do our project D;
 
+### 5/24/24
+
+I have discovered a way to turn online gifs into images in order to work properly with our processing program
+
 
 
 ## GROUP MEMBER 2: Taamim Naamid
