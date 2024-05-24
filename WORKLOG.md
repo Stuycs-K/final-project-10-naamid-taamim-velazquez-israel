@@ -23,6 +23,15 @@ I clapped loudly because it seemed like Mr K was trying to gather everyone's att
 I've also attempted to figure out how to import libraries instead of doing an Animation class... This also failed on us. I'm not sure exactly how to continue honestly
 I've figured out how to make it work :D. I had forgotten a bit of java cause it was processing, I have to do 'new Animation' in order to get it to work
 
+### 5/23/24 HW
+
+We discussed creating different functions in order to make the workload more seamless and clean. 
+I have also discovered that the only way to work with gifs in processing is with our old graphics project :/
+This will be fun to consider the implications of. I'll try and find out if you can convert a gif into a the series of kmages that it is.
+otherwise there's almost no real way to do our project D;
+
+
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
