@@ -48,4 +48,10 @@ Tried to work on getting processing-java and failed, the PATH is not PATH-ing ev
 
 ### May 23, 2024 (HW)
 
-Trued to get processing-java to work again, but Ubuntu seems to be really averse to working the way I think it would. Supposedly just adding it to the PATH should work (did for windows at least) but Ubuntu really doesn't care about it (maybe my cmd was wrong or something? It is definitely added to thr PATH though).
+Tried to get processing-java to work again, but Ubuntu seems to be really averse to working the way I think it would. Supposedly just adding it to the PATH should work (did for windows at least) but Ubuntu really doesn't care about it (maybe my cmd was wrong or something? It is definitely added to thr PATH though).
+
+### May 24, 2024
+
+Working on the video side because hopefully GIFs aren't too terribly difficult to do. Right now, the idea is to use a lossless format (currently looking at FFmpeg) and then do some stuff with that and eventually getting encoding/decoding working on it, after I figure out how it'll work. It would be kind of funny if we can just turn it into a GIF and then use normal GIF operations on it and ultimately turn it back into an FFmpeg but I don't think that is an interesting solution (it would be cool if I can try to figure out how to do it with a lossy compression format but that doesn't seem like something that I can figure out very easily beacuse video compression is good and awesome and terrible for keeping frames exactly the same as you put them in for the sake of efficiency).
+Also here is a link that might be useful for the FFmped into GIF route https://video.stackexchange.com/questions/23530/use-ffmpeg-to-create-a-video-from-a-few-images.
+I have also come to raelize that Processing might just solve these problems because its built in video maker might have the capability to export a video as a lossless video format (I don't know how compatible this will be in a general situation ofr what kind of file that it'll turn into, but it's probably more convenient to use a video made in Processing in Processing.
