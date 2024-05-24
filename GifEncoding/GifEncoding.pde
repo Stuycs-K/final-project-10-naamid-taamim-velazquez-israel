@@ -21,10 +21,10 @@ int FILE_TYPE;
 
 void setup() {
   gif = new Animation("androidSpin", 30);
+  gif.display(0,0);
 }
 
 void draw() {
-  
 }
 
 void keyPressed() {
