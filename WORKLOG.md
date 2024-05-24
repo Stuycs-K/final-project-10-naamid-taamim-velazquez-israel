@@ -33,6 +33,9 @@ otherwise there's almost no real way to do our project D;
 ### 5/24/24
 
 I have discovered a way to turn online gifs into images in order to work properly with our processing program
+I have made a makefile
+I have made that makefile not have any error when you try to make clean, because it was bothering me D;
+
 
 
 
