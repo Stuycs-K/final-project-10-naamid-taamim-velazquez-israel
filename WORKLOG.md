@@ -35,7 +35,8 @@ otherwise there's almost no real way to do our project D;
 I have discovered a way to turn online gifs into images in order to work properly with our processing program
 I have made a makefile
 I have made that makefile not have any error when you try to make clean, because it was bothering me D;
-
+Added some code in processing to make the MODE / FILE_TYPE loop around so that I can change it without having to look back at the code
+Added a processing-java command to work well in conjunction with Taamim's export code once they add it
 
 
 

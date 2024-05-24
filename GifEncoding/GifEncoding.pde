@@ -20,11 +20,10 @@ int FILE_TYPE;
 
 
 void setup() {
-  
+  gif = new Animation("androidSpin", 30);
 }
 
 void draw() {
-  
   
 }
 
@@ -39,6 +38,6 @@ void keyPressed() {
    FILE_TYPE++;
  }
  if (FILE_TYPE>GIF) {
-  FILE_TYPE=VIDEO; 
+   FILE_TYPE=VIDEO; 
  }
 }
