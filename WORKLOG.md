@@ -38,7 +38,14 @@ I have made that makefile not have any error when you try to make clean, because
 Added some code in processing to make the MODE / FILE_TYPE loop around so that I can change it without having to look back at the code
 Added a processing-java command to work well in conjunction with Taamim's export code once they add it
 
-
+### 5/24-27/24 HW
+I have pulled old processing code in order to more efficiently encode messages or file. Does not currenntly work with gifs, will need to be updated to include those.
+I added some code in the future so I can ask about the way arguments work in processing. Also some code to add some cool text to our build so people can see their changes live.
+Made a string array to further make text additions easier to track
+Started working on the draw loop and adding if statement for our different functions
+Added different modes to accept images and messages as a part of encrypting...Which should have been there from the beginning but don't ask me lmao
+Arguments for gifs will be fun
+Will pull Graphics project to repo tomorrow for better testing
 
 ## GROUP MEMBER 2: Taamim Naamid
 
