@@ -74,3 +74,7 @@ I have also come to raelize that Processing might just solve these problems beca
 ### May 28, 2024 (HW)
 
 Looked into the FFmpeg stuff and I think that it should be doable to extract frames and stitch them together to form a video. Theoretically, it should also be possible to also extract and encrypt things in audio as well (using FLAC if we want to do this) but honestly I think that this is enough research for a game plan in order to get things done.
+
+### May 28, 2024
+
+Me when FFmpeg (does not end well)
