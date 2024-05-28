@@ -47,6 +47,10 @@ Added different modes to accept images and messages as a part of encrypting...Wh
 Arguments for gifs will be fun
 Will pull Graphics project to repo tomorrow for better testing
 
+### 5/28/24
+
+I added a lot of stuff. Made the window resize, added more code... TO BE EXPANDED LATER
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
