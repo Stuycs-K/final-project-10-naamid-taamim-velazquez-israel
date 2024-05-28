@@ -1,66 +1,42 @@
-import java.io.*;
-import java.util.*;
-import java.math.*;
-
-Animation gif;
-final int MESSAGE = 0;
-final int IMAGE = 1;
-final int VIDEO = 2;
-//GIF == 3
-
-final int DISPLAY = 4;
-final int ENCRYPT = 5;
-final int DECRYPT = 6;
-final int DIFF_R = 7;
-final int DIFF_G = 8;
-final int DIFF_B = 9;
-final int DIFF = 10;
-
-int MODE =  DISPLAY;
-int FILE_TYPE;
-String[] arr = new String[] {"MESSAGE", "IMAGE", "VIDEO", "GIF", "DISPLAY", "ENCRYPT", "DECRYPT", "DIFF_R", "DIFF_G", "DIFF_B", "DIFF"};
+import java.util.Arrays;
+int LINEAR = 0;
+int SELECTIVE = 1;
+int FILE = 2;
+int DECODE = 3;
+int MODE = FILE;
 
 
+//Note: for code that runs one time place all code in setup.
 void setup() {
-  size(0, 0);
-  gif = new Animation("data/"+"androidSpin", 49);
-  gif.display(0,0);
-  windowResize(gif.images[0].width, gif.images[0].height);
-  //put text on screen with arr[MODE]
-  //put text on screen with arr[FILE_TYPE]
-}
+  size(1200, 600);
+  
+  //println();println();println();println();println();println();println();
 
-void draw() {
-  PImage newImage;
-  Animation newGif;
-  int[] parts;
-  if (MODE==DISPLAY) {
-    gif.display(0,0);
-    delay(75);
-  }
-  else if (MODE==ENCRYPT) {
-    String argument = "";
-    if(FILE_TYPE != MESSAGE){
-      parts = fileToArray(argument);
-    }else{
-      parts = messageToArray(argument);
-    }
-  }
-}
+  //1. Add the cat.png file to the sketch before running.
+  PImage img = loadImage("cat.png");
+  
+  //0. If you want to change the size to display the image you can print the dimensions here:
+  //println(img.width,img.height);
 
-void keyPressed() {
- if (key==' ') {
-   MODE++;
- }
- if (MODE>DIFF) {
-   MODE=DISPLAY;
- }
- if (key=='f') {
-   FILE_TYPE++;
- }
- if (FILE_TYPE>GIF) {
-   FILE_TYPE=MESSAGE; 
- }
+  //2. Write the MESSAGETOARRAY method
+  //convert the string into an array of ints in the range 0-3
+  int[]parts;
+  
+  if(MODE == FILE){
+    parts = fileToArray("inputfile.dat");
+    println("Number of bytes:"+parts.length/4  );
+  }else{
+    String messageToEncode = "This is a message encoded using LSBSteganography. There are two modes that can be selected. This text is getting longer but is just used to make more pixels different.";
+    parts = messageToArray(messageToEncode);
+  }
+
+  //3. Write the MODIFY method.
+  modifyImage(img, parts);
+
+  //save the modified image to disk.
+  img.save("modifiedCat.png");
+  image(img, 0, 0);
+  
 }
 
 int [] messageToArray(String s) {
@@ -149,4 +125,29 @@ int[] fileToArray(String name) {
    //debug(name, arr);
    
    return arr;
+}
+
+void debug(String name, int[] arr) {
+  byte[] b = loadBytes(name);
+  byte[] nums = new byte[arr.length];
+  for (int i=0; i<arr.length; i++) {
+    nums[i] = (byte)arr[i];
+  }
+  saveBytes("Output.png", nums);
+  PImage img = loadImage("Output.png");
+  byte[] after = new byte[arr.length/4];
+  for (int i=0; i<arr.length; i++) {
+    after[i/4] = (byte)(after[i/4]<<2);
+    println(img.pixels[i]);
+    byte red = (byte)((int)(red(img.pixels[i]))&3);
+    after[i/4]+=red;
+  }
+  int count = 0;
+  for (int i=0; i<b.length; i++) {
+    println(b[i]+": "+arr[i*4]+", "+arr[i*4+1]+", "+arr[i*4+2]+", "+arr[i*4+3] + " -> " + after[i]);
+    if (b[i]!=after[i]) {
+      count++;
+    }
+  }
+  println(count);
 }
