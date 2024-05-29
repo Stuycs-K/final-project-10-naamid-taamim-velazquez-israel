@@ -4,4 +4,7 @@ convertPNG:
 clean:
 	@rm images-* 2> /dev/null || true
 run: ./GifEncoding/GifEncoding.pde
-	@processing-java --sketch="./GifEncoding/" --run $(ARGS)
+	touch tmp.tmp; echo $(ARGS) > tmp.tmp
+	sed -E "s/ .*//" tmp.tmp
+	rm tmp.tmp
+	processing-java --sketch="./GifEncoding/" --run $(ARGS)
