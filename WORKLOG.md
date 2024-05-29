@@ -78,3 +78,7 @@ Looked into the FFmpeg stuff and I think that it should be doable to extract fra
 ### May 28, 2024
 
 Me when FFmpeg (does not end well)
+
+### May 29, 2024 (HW)
+
+Tried to get FFmpeg to work on Windows, and it doesn't like me (at least it's mutual). I think I have something working, though, so that's a good "start" since GIF encoding shouldn't be that bad theoretically...
