@@ -57,6 +57,12 @@ Tested the logistics for how exactly to encode a gif, and encode into a gif. See
 In order to encode intk a gif, we just do the encode process normally, putting it into the different colors. Except we move to a new png lf the gif if we run out of room.
 decoding will be harder. we'd need to find a condition to stop. we debated over having one tilr being all red, followed by one tile being all blue, and the final tile being all green in order to tell us to stop. works better for gifs rather than images tho, cause those cllors only appear for a second
 
+### 5/29/24
+Started working on the makefile
+Allowed the file to work with arguments
+Found out that gifs get converted via an earlier method we have
+All we need to do it encode and decode in a specific way
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
