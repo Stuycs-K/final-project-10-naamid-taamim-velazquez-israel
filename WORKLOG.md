@@ -50,6 +50,7 @@ Will pull Graphics project to repo tomorrow for better testing
 ### 5/28/24
 
 I added a lot of stuff. Made the window resize, added more code... TO BE EXPANDED LATER
+I also got rid of sll the errors, and noe know how the arguments work for processing. only thing left really is to make the new functions, and then make the makefile work with the program
 
 ### 5/28/24 HW
 Tested the logistics for how exactly to encode a gif, and encode into a gif. Seems like we just need to encode a gif to have every single byte into a massive array, basically it's just how a png works but with a lot of images.
