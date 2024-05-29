@@ -51,6 +51,11 @@ Will pull Graphics project to repo tomorrow for better testing
 
 I added a lot of stuff. Made the window resize, added more code... TO BE EXPANDED LATER
 
+### 5/28/24 HW
+Tested the logistics for how exactly to encode a gif, and encode into a gif. Seems like we just need to encode a gif to have every single byte into a massive array, basically it's just how a png works but with a lot of images.
+In order to encode intk a gif, we just do the encode process normally, putting it into the different colors. Except we move to a new png lf the gif if we run out of room.
+decoding will be harder. we'd need to find a condition to stop. we debated over having one tilr being all red, followed by one tile being all blue, and the final tile being all green in order to tell us to stop. works better for gifs rather than images tho, cause those cllors only appear for a second
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
