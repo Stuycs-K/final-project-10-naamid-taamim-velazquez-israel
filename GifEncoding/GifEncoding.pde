@@ -112,3 +112,7 @@ int[] fileToArray(String name) {
    
    return arr;
 }
+
+void modifyFile(Animation gif, int[] parts) {
+
+}
