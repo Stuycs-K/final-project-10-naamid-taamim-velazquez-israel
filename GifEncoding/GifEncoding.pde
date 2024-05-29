@@ -28,6 +28,7 @@ void setup() {
   windowResize(gif.images[0].width, gif.images[0].height);
   //put text on screen with arr[MODE]
   //put text on screen with arr[FILE_TYPE]
+	println("Press space to change the mode. F to change the file_type");
   if (args==null) {
     args = new String[0];
   }
