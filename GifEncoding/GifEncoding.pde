@@ -52,8 +52,8 @@ void draw() {
       parts = fileToArray(argument);
     }
   }
-  text(arr[MODE], 0, 10);
-  text(arr[FILE_TYPE], 0, 20);
+  text("MODE =" + arr[MODE], 0, 10);
+  text("FILE_TYPE to encode" + arr[FILE_TYPE], 0, 20);
 }
 
 void keyPressed() {
