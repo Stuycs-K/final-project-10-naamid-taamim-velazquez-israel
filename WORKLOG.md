@@ -63,6 +63,10 @@ Allowed the file to work with arguments
 Found out that gifs get converted via an earlier method we have
 All we need to do it encode and decode in a specific way
 
+### 5/29/24 HW
+Made some minor modifications to the processing code
+Getting ready to start encoding an image into the colors
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
