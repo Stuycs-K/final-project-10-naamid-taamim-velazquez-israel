@@ -86,3 +86,7 @@ Tried to get FFmpeg to work on Windows, and it doesn't like me (at least it's mu
 ### May 29, 2024
 
 FFmpeg is working on windows but it really doesn't want to work? Like I'm following commands that should make it work word-for-word but no the video format is not real and windows will not recognize it and execute me at the stake for even trying to make this sad excuse of an mp4 or something idk.
+
+### May 30, 2024
+
+FFmpeg is working on windows, but actually I think? This means we should be able to stitch together images into videos, which should allow us to also add audio on top of that if I'm not mistaken.
