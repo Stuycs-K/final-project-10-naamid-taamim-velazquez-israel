@@ -38,8 +38,26 @@ void setup() {
 }
 
 void draw() {
+  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int amount) (string encodefile) (int file_type2) (string encodeInto)
+  MODE = Integer.parseInt(args[0]);
+  FILE_TYPE = Integer.parseInt(args[1]);
+
   PImage newImage;
   Animation newGif;
+  String message;
+  
+  if (FILE_TYPE==GIF) {
+    newGif = new Animation(args[3], Integer.parseInt(args[2]));
+  }
+  else if (FILE_TYPE==IMG) {
+    newImage = loadImage(args[3]);
+  }
+  else if (FILE_TYPE==MESSAGE) {
+    message = args[3];
+  }
+  else {
+    
+  }
   int[] parts;
   if (MODE==DISPLAY) {
     gif.display(0,0);
