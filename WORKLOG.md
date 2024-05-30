@@ -90,3 +90,19 @@ I have also come to raelize that Processing might just solve these problems beca
 ### May 28, 2024 (HW)
 
 Looked into the FFmpeg stuff and I think that it should be doable to extract frames and stitch them together to form a video. Theoretically, it should also be possible to also extract and encrypt things in audio as well (using FLAC if we want to do this) but honestly I think that this is enough research for a game plan in order to get things done.
+
+### May 28, 2024
+
+Me when FFmpeg (does not end well)
+
+### May 29, 2024 (HW)
+
+Tried to get FFmpeg to work on Windows, and it doesn't like me (at least it's mutual). I think I have something working, though, so that's a good "start" since GIF encoding shouldn't be that bad theoretically...
+
+### May 29, 2024
+
+FFmpeg is working on windows but it really doesn't want to work? Like I'm following commands that should make it work word-for-word but no the video format is not real and windows will not recognize it and execute me at the stake for even trying to make this sad excuse of an mp4 or something idk.
+
+### May 30, 2024
+
+FFmpeg is working on windows, but actually I think? This means we should be able to stitch together images into videos, which should allow us to also add audio on top of that if I'm not mistaken.
