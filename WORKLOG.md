@@ -67,6 +67,11 @@ All we need to do it encode and decode in a specific way
 Made some minor modifications to the processing code
 Getting ready to start encoding an image into the colors
 
+### 5/30/24
+I worked on processing
+Fixed how I did the setup
+Really close to being done
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
