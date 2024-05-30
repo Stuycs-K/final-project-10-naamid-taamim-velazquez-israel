@@ -2,7 +2,6 @@ import java.io.*;
 import java.util.*;
 import java.math.*;
 
-Animation gif;
 final int MESSAGE = 0;
 final int IMG = 1;
 final int VIDEO = 2;
@@ -16,63 +15,80 @@ final int DIFF_G = 8;
 final int DIFF_B = 9;
 final int DIFF = 10;
 
-int MODE =  DISPLAY;
-int FILE_TYPE = MESSAGE;
+int MODE;
+int FILE; int FILE2;
 String[] arr = new String[] {"MESSAGE", "IMAGE", "VIDEO", "GIF", "DISPLAY", "ENCRYPT", "DECRYPT", "DIFF_R", "DIFF_G", "DIFF_B", "DIFF"};
-
+PImage newImage; Animation newGif; String newMessage; //stuff to encode
+PImage oldImage; Animation oldGif; //stuff to encode into
 
 void setup() {
   size(0, 0);
-  gif = new Animation("data/"+"androidSpin", 49);
-  gif.display(0,0);
-  windowResize(gif.images[0].width, gif.images[0].height);
-  //put text on screen with arr[MODE]
-  //put text on screen with arr[FILE_TYPE]
-	println("Press space to change the mode. F to change the file_type");
-  if (args==null) {
-    args = new String[0];
-  }
-  if (args.length>0) {
-    println(args[0]);
-  }
-}
-
-void draw() {
-  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int amount) (string encodefile) (int file_type2) (string encodeInto)
+  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
+  //                                                  0            1             2               3                  4                 5               6
   MODE = Integer.parseInt(args[0]);
-  FILE_TYPE = Integer.parseInt(args[1]);
+  FILE = Integer.parseInt(args[1]);
+  FILE2 = Integer.parseInt(args[4]);
+  int x;
+  int y;
 
-  PImage newImage;
-  Animation newGif;
-  String message;
-  
-  if (FILE_TYPE==GIF) {
+  if (FILE==GIF) {
     newGif = new Animation(args[3], Integer.parseInt(args[2]));
   }
-  else if (FILE_TYPE==IMG) {
+  else if (FILE==IMG) {
     newImage = loadImage(args[3]);
   }
-  else if (FILE_TYPE==MESSAGE) {
-    message = args[3];
+  else if (FILE==MESSAGE) {
+    newMessage = args[3];
   }
   else {
     
   }
-  int[] parts;
-  if (MODE==DISPLAY) {
-    gif.display(0,0);
-    delay(75);
+  
+  if (FILE2==GIF) {
+    oldGif = new Animation(args[6], Integer.parseInt(args[5]));
+    x = oldGif.images[0].width;
+    y = oldGif.images[0].height;
   }
-  else if (MODE==ENCRYPT) {
-    String argument = "";
-    if(FILE_TYPE == MESSAGE){
-      parts = messageToArray(argument);
-    }else{
-      parts = fileToArray(argument);
-    }
+  else if (FILE2==IMG) {
+    oldImage = loadImage(args[6]);
+    x=oldImage.width;
+    y=oldImage.height;
   }
-  text("MODE =" + arr[MODE], 0, 10);
-  text("FILE_TYPE to encode" + arr[FILE_TYPE], 0, 20);
+  else {
+    x = 0;
+    y = 0;
+  }
+  if (MODE==ENCRYPT) {
+  
+  }
+  else if (MODE==DECRYPT) {
+    
+  }
+  else if (MODE==DISPLAY) {
+    
+  }
+  else if (MODE==DIFF) {
+    
+  }
+  else if (MODE==DIFF_R) {
+    
+  }
+  else if (MODE==DIFF_G) {
+    
+  }
+  else if (MODE==DIFF_B) {
+    
+  }
+  
+  
+
+  windowResize(x, y);
+}
+
+void draw() {
+  
+  
+  
 }
 
 void keyPressed() {
@@ -83,10 +99,10 @@ void keyPressed() {
    MODE=DISPLAY;
  }
  if (key=='f') {
-   FILE_TYPE++;
+   FILE++;
  }
- if (FILE_TYPE>GIF) {
-   FILE_TYPE=MESSAGE; 
+ if (FILE>GIF) {
+   FILE=MESSAGE; 
  }
 }
 
