@@ -32,7 +32,8 @@ void setup() {
   int y;
 
   if (FILE==GIF) {
-    newGif = new Animation(args[3], Integer.parseInt(args[2]));
+    String filename = args[3].substring(0, args[3].indexOf("."));
+    newGif = new Animation(filename, Integer.parseInt(args[2]));
   }
   else if (FILE==IMG) {
     newImage = loadImage(args[3]);
@@ -45,7 +46,8 @@ void setup() {
   }
   
   if (FILE2==GIF) {
-    oldGif = new Animation(args[6], Integer.parseInt(args[5]));
+    String filename = args[6].substring(0, args[6].indexOf("."));
+    oldGif = new Animation(filename, Integer.parseInt(args[5]));
     x = oldGif.images[0].width;
     y = oldGif.images[0].height;
   }
