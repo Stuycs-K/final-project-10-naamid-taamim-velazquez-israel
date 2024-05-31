@@ -181,7 +181,8 @@ void modifyFile(PImage img, int[] parts) {
       pixel++;
     }
   }
-  
+  // :BWEQJLRWhvsdljhbvsed;kjhgveouiybgekj;gh
+  // THIS IS VERY IMPORTANT, YOU NEED AN END TO THE ENCRYPTION
   img.updatePixels();
 }
 
