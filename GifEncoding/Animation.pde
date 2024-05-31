@@ -1,4 +1,4 @@
-//Code Borrowed from James Paterson because I can't seem to import this from processing so I must copy paste it manually
+//Code Borrowed from James Paterson because I can't seem to import this from processing so I must copy paste it manually... Also edited it to suite my needs
 public class Animation {
   PImage[] images;
   int imageCount;
@@ -10,7 +10,7 @@ public class Animation {
 
     for (int i = 0; i < imageCount; i++) {
       // Use nf() to number format 'i' into four digits
-      String filename = imagePrefix + "-"+i + ".png";
+      String filename = nf(5,i) + ".png";
       images[i] = loadImage(filename);
     }
   }
