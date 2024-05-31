@@ -110,3 +110,7 @@ FFmpeg is working on windows, but actually I think? This means we should be able
 ### May 30, 2024
 
 See last commit/push message
+
+### May 31, 2024 (HW)
+
+FFmpeg is not working on windows, in fact. For some reason, the exact same command that works on ubuntu / marge creates an mp4 on windows that just isn't recognized on windows (the mp4 made on ubuntu works though), so I'm kind of just being stupid and might have to just download ffmpeg on Kali and pretend like I know how ffmpeg works on Linux at least (so lossy conversion checking is TBD)
