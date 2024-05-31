@@ -7,9 +7,9 @@ final int IMG = 1;
 final int VIDEO = 2;
 //GIF == 3
 
-final int DISPLAY = 4;
-final int ENCRYPT = 5;
-final int DECRYPT = 6;
+final int ENCRYPT = 4;
+final int DECRYPT = 5;
+final int DISPLAY = 6;
 final int DIFF_R = 7;
 final int DIFF_G = 8;
 final int DIFF_B = 9;
@@ -17,7 +17,7 @@ final int DIFF = 10;
 
 int MODE;
 int FILE; int FILE2;
-String[] arr = new String[] {"MESSAGE", "IMAGE", "VIDEO", "GIF", "DISPLAY", "ENCRYPT", "DECRYPT", "DIFF_R", "DIFF_G", "DIFF_B", "DIFF"};
+String[] arr = new String[] {"MESSAGE", "IMAGE", "VIDEO", "GIF", "ENCRYPT", "DECRYPT", "DISPLAY", "DIFF_R", "DIFF_G", "DIFF_B", "DIFF"};
 PImage newImage; Animation newGif; String newMessage; //stuff to encode
 PImage oldImage; Animation oldGif; //stuff to encode into
 
@@ -64,7 +64,16 @@ void setup() {
   else if (MODE==DECRYPT) {
     
   }
-  else if (MODE==DISPLAY) {
+
+  
+  
+
+  windowResize(x, y);
+}
+
+void draw() {
+  
+  if (MODE==DISPLAY) {
     
   }
   else if (MODE==DIFF) {
@@ -79,15 +88,6 @@ void setup() {
   else if (MODE==DIFF_B) {
     
   }
-  
-  
-
-  windowResize(x, y);
-}
-
-void draw() {
-  
-  
   
 }
 
