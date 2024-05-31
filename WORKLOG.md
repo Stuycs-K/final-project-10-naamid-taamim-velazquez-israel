@@ -72,6 +72,12 @@ I worked on processing
 Fixed how I did the setup
 Really close to being done
 
+### 5/30/24 HW
+So here's how it'll work out
+run "processing-java --sketch="name" (int mode) (int filetype1) (int frames1) (string filename) (int filetype2) (int frames2) (string filename2)
+then from there, we'll have encyrpt/decrypt modes, and let the user cyxle through Diffs to see the difference vs the original image
+so the diffs and display are all in draw, everything else is in setup
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
