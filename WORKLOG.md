@@ -63,6 +63,21 @@ Allowed the file to work with arguments
 Found out that gifs get converted via an earlier method we have
 All we need to do it encode and decode in a specific way
 
+### 5/29/24 HW
+Made some minor modifications to the processing code
+Getting ready to start encoding an image into the colors
+
+### 5/30/24
+I worked on processing
+Fixed how I did the setup
+Really close to being done
+
+### 5/30/24 HW
+So here's how it'll work out
+run "processing-java --sketch="name" (int mode) (int filetype1) (int frames1) (string filename) (int filetype2) (int frames2) (string filename2)
+then from there, we'll have encyrpt/decrypt modes, and let the user cyxle through Diffs to see the difference vs the original image
+so the diffs and display are all in draw, everything else is in setup
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
