@@ -30,16 +30,20 @@ void setup() {
   FILE2 = Integer.parseInt(args[4]);
   int x;
   int y;
+  int[] parts;
 
   if (FILE==GIF) {
     String filename = args[3].substring(0, args[3].indexOf("."));
     newGif = new Animation(filename, Integer.parseInt(args[2]));
+    parts = fileToArray(args[3]);
   }
   else if (FILE==IMG) {
     newImage = loadImage(args[3]);
+    parts = fileToArray(args[3]);
   }
   else if (FILE==MESSAGE) {
     newMessage = args[3];
+    parts = messageToArray(args[3]);
   }
   else {
     
@@ -138,17 +142,49 @@ int[] fileToArray(String name) {
    byte[] b = loadBytes(name);
    int[] arr = new int[b.length*4];
    for (int i=0; i<b.length; i++) {
-     //println((b[i]&128) + " " + (b[i]&64) + " " + (b[i]&32) + " " + (b[i]&16) + " " + (b[i]&8) + " " + (b[i]&4) + " " + (b[i]&2) + " " + (b[i]&1) + " ");
      arr[i*4] = ((b[i]&128)/64) + (b[i]&64)/64;
      arr[i*4+1] = ((b[i]&32)/16) + (b[i]&16)/16;
      arr[i*4+2] = ((b[i]&8)/4) + (b[i]&4)/4;
      arr[i*4+3] = ((b[i]&2)) + (b[i]&1);
-     //println(b[i]+": "+arr[i*4]+", "+arr[i*4+1]+", "+arr[i*4+2]+", "+arr[i*4+3]);
    }
-   
    return arr;
 }
 
 void modifyFile(Animation gif, int[] parts) {
+  
+}
 
+void modifyFile(PImage img, int[] parts) {
+  img.loadPixels();
+  int pixel = 0;
+  for (int i=0; i<parts.length; i+=3) {
+    //print(red(img.pixels[i]) + " " + messageArray[i]+ " ");
+    //int red = (int)(red(img.pixels[i])+(parts[i]-((int)(red(img.pixels[i]))&3)));
+    //img.pixels[i] = color(red, green(img.pixels[i]), blue(img.pixels[i]));
+    //println(red(img.pixels[i]));
+    if (i+2<parts.length) {
+      int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
+      int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
+      int blue = (int)(blue(img.pixels[pixel])+(parts[i+2]-((int)(blue(img.pixels[pixel]))&3)));
+      img.pixels[pixel] = color(red, green, blue);
+      pixel++;
+    }
+    else if (i+1<parts.length) {
+      int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
+      int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
+      img.pixels[pixel] = color(red, green, blue(img.pixels[pixel]));
+      pixel++;
+    }
+    else {
+      int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
+      img.pixels[pixel] = color(red, green(img.pixels[pixel]), blue(img.pixels[pixel]));
+      pixel++;
+    }
+  }
+  
+  img.updatePixels();
+}
+
+void modifyVideo(int[] parts) {
+  
 }
