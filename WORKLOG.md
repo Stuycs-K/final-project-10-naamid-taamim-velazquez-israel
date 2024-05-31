@@ -78,6 +78,12 @@ run "processing-java --sketch="name" (int mode) (int filetype1) (int frames1) (s
 then from there, we'll have encyrpt/decrypt modes, and let the user cyxle through Diffs to see the difference vs the original image
 so the diffs and display are all in draw, everything else is in setup
 
+### 5/31/24
+So I am nearly done with the encryption method, even though a lot of the work I did wasn't needed
+I still need to be able to end the encrption whenever so then I need a closing statement to the encryption like all red, then green, then blue
+moved some stuff from the setup to the draw
+Need to finish Decrypt
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
