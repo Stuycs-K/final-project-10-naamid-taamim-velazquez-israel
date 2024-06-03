@@ -84,6 +84,12 @@ I still need to be able to end the encrption whenever so then I need a closing s
 moved some stuff from the setup to the draw
 Need to finish Decrypt
 
+### 5/31/24 GW
+Finished Encryption
+Encryption now needs red, green, blue, and then a red pixel back to back at the very end
+I find this hughly improbably to find in a file naturally, so imma keep it
+decrypt comes next
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
