@@ -10,9 +10,16 @@ public class Animation {
 
     for (int i = 0; i < imageCount; i++) {
       // Use nf() to number format 'i' into four digits
-      String filename = nf(5,i) + ".png";
+      String filename = imagePrefix +"-"+i + ".png";
       images[i] = loadImage(filename);
     }
+  }
+  
+  public Animation(String imagePrefix) {
+    imageCount = 1;
+    images = new PImage[1];
+
+    images[0] = loadImage(imagePrefix);
   }
 
   void display(float xpos, float ypos) {

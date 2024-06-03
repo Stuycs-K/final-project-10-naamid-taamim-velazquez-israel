@@ -33,12 +33,13 @@ void setup() {
   int[] parts;
 
   if (FILE==GIF) {
-    String filename = args[3].substring(0, args[3].indexOf("."));
+    //String filename = args[3].substring(0, args[3].indexOf("."));
+    String filename = args[3];
     newGif = new Animation(filename, Integer.parseInt(args[2]));
     parts = fileToArray(args[3]);
   }
   else if (FILE==IMG) {
-    newImage = loadImage(args[3]);
+    newGif = new Animation(args[3]);
     parts = fileToArray(args[3]);
   }
   else if (FILE==MESSAGE) {
@@ -46,17 +47,18 @@ void setup() {
     parts = messageToArray(args[3]);
   }
   else {
-    
+    parts = new int[2];
   }
   
   if (FILE2==GIF) {
-    String filename = args[6].substring(0, args[6].indexOf("."));
+    //String filename = args[6].substring(0, args[6].indexOf("."));
+    String filename = args[6];
     oldGif = new Animation(filename, Integer.parseInt(args[5]));
     x = oldGif.images[0].width;
     y = oldGif.images[0].height;
   }
   else if (FILE2==IMG) {
-    oldImage = loadImage(args[6]);
+    oldGif = new Animation(args[6]);
     x=oldImage.width;
     y=oldImage.height;
   }
@@ -65,7 +67,7 @@ void setup() {
     y = 0;
   }
   if (MODE==ENCRYPT) {
-  
+    modifyFile(oldGif, parts);
   }
   else if (MODE==DECRYPT) {
     
@@ -80,7 +82,9 @@ void setup() {
 void draw() {
   
   if (MODE==DISPLAY) {
-    
+    background(255,255,255);
+    oldGif.display(0,0);
+    delay(1000);
   }
   else if (MODE==DIFF) {
     
@@ -156,7 +160,7 @@ void modifyFile(Animation gif, int[] parts) {
     PImage img = gif.images[j];
     img.loadPixels();
     int pixel = 0;
-    for (int i=whereInParts; i<parts.length && i-whereInParts<img.width * img.height; i+=3) {
+    for (int i=whereInParts; i<parts.length && pixel<img.width * img.height; i+=3) {
       if (i+2<parts.length) {
         int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
         int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
@@ -182,6 +186,7 @@ void modifyFile(Animation gif, int[] parts) {
       img.pixels[pixel+1] = color(0, 255, 0);
       img.pixels[pixel+2] = color(0, 0, 255);
       img.pixels[pixel+3] = color(255, 0, 0);
+      j+=gif.frame;
     }
     img.updatePixels();
   }

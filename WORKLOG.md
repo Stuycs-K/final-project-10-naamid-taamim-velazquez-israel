@@ -84,11 +84,15 @@ I still need to be able to end the encrption whenever so then I need a closing s
 moved some stuff from the setup to the draw
 Need to finish Decrypt
 
-### 5/31/24 GW
+### 5/31/24 HW
 Finished Encryption
 Encryption now needs red, green, blue, and then a red pixel back to back at the very end
 I find this hughly improbably to find in a file naturally, so imma keep it
 decrypt comes next
+
+### 6/3/24
+Encrypt also works with gifs now, forgot to do that earlier
+Pasting run command here: processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
 
 ## GROUP MEMBER 2: Taamim Naamid
 
