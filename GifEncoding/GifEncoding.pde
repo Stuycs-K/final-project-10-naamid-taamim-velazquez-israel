@@ -183,6 +183,10 @@ void modifyFile(PImage img, int[] parts) {
   }
   // :BWEQJLRWhvsdljhbvsed;kjhgveouiybgekj;gh
   // THIS IS VERY IMPORTANT, YOU NEED AN END TO THE ENCRYPTION
+	img.pixels[pixel] = color(255, 0, 0);
+	img.pixels[pixel+1] = color(0, 255, 0);
+	img.pixels[pixel+2] = color(0, 0, 255);
+	img.pixels[pixel+3] = color(255, 0, 0);
   img.updatePixels();
 }
 
