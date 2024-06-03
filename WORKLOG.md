@@ -161,3 +161,19 @@ OK SO IVE KINDA FIGURE OUT A WAY TO DO IT (lossless conversion of video->pngs->v
 - images3.avi -> video4.avi
 After all that, we have video3.avi == video4.avi... I don't know why it doesn't happen in an earlier iteration but y'know we'll take it and optimize it from here at not literally 3 AM
 
+I'm like really confused but for unrelated reasons but I'm going to mess around with ffmpeg flags to see if I get some cool results.
+OK after flag experimentation, I can confirm that I changed no flags but video2 == video3 lol dunno why it didn't work the first time around
+So that's cool and all... but what if we just like could get video1 to video2 to work?
+I think the issue is that the extra flags that I've used to convert .pngs to .avis are overriding default values, but my .mp4 to .avi cmd has no flags so it does have those default vals that are goofing it a bit (maybe, idk thats just my theory. Maybe conversion from .mp4 to .avi is just much more optimized than .png collection to .avi)
+OK so I think that I've figured out that... I don't know what flags to use? Like this somewhat roundabout system works and isn't that bad I guess, but still doesn't feel right (and I can't figure out what flags I need to not make it 30kb)
+OK so I realized that mp4 -> frames -> avi doesn't really work either (im guessing that it has something to do with YUV color space vs RGB causing awkwardness)
+I think that turning a video into an avi and then avi to avi and then to editable frames into another post avi is working so ill use it
+Ok... don't know what I did exactly but now it takes 4 videos again... s i c k
+Also js to confirm... idt we can convert back to mp4
+I lost the plot a little so here are the cmds we need:
+
+
+
+Turn .mp4 to .AVI: ffmpeg -i video.mp4 -vcodec copy -acodec copy video.avi
+Turn a .AVI to PNGs: ffmpeg -i video.avi -vf fps=30 image.png
+Turn PNGs to a .AVI: ffmpeg -framerate 30 -i image.png -codec copy video.avi

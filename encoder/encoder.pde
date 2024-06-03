@@ -72,8 +72,8 @@ void setup() {
     println(decoded);
   }
   if (MODE==TEST) {
-    byte byteHolder1[] = loadBytes("1secv4.avi");
-    byte byteHolder2[] = loadBytes("1secv3.avi");
+    byte byteHolder1[] = loadBytes("1secv1.avi");
+    byte byteHolder2[] = loadBytes("1secv2.avi");
     print(byteHolder1.length+" "+byteHolder2.length);
     for (int i=0;i<byteHolder1.length;i++) {
       if (byteHolder1[i]!=byteHolder2[i]) {
