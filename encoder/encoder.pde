@@ -5,17 +5,18 @@ int LINEAR = 0;
 int SELECTIVE = 1;
 int FILE = 2;
 int DIFF = 3;
-int MODE = DIFF;
+int TEST = 4;
+int MODE = TEST;
 int FILEBYTES = 100576;
-String OGFILENAME = "normal00.png";
-String EDITEDFILENAME = "edited00.png";
+String OGFILENAME = "original01.png";
+String EDITEDFILENAME = "edited01.png";
 color BLACK = color(0);
 color WHITE = color(255);
 PImage image1;
 PImage image2;
 int diffMode = 0;
-boolean ENCODE = true;
-boolean DECODE = true;
+boolean ENCODE = false;
+boolean DECODE = false;
 
 //Note: for code that runs one time place all code in setup.
 void setup() {
@@ -69,6 +70,17 @@ void setup() {
     loadPixels();
     String decoded = decodeLinear(img3);
     println(decoded);
+  }
+  if (MODE==TEST) {
+    byte byteHolder1[] = loadBytes("1secv4.avi");
+    byte byteHolder2[] = loadBytes("1secv3.avi");
+    print(byteHolder1.length+" "+byteHolder2.length);
+    for (int i=0;i<byteHolder1.length;i++) {
+      if (byteHolder1[i]!=byteHolder2[i]) {
+        print(i);
+        break;
+      }
+    }
   }
 }
 int [] messageToArray(String s) {

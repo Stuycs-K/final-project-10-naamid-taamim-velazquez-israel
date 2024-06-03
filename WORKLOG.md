@@ -139,3 +139,25 @@ FFmpeg is not working on windows, in fact. For some reason, the exact same comma
 ### May 31, 2024
 
 I continue my prolongued battle against ffmpeg but this time I get the power-up that may be AVI
+
+### June 3, 2024 (HW)
+
+I have found out that Windows just doesn't want to support .AVI, even after installing the extension to support .AVI in the Microsoft Store... so to VLC media player we go to download a usable video player with a funny traffic cone. Anyways, I'm doing ffmpeg things and we're abt to find out if they worked losslessly.
+HOLY SHIT I THINK IT WORKED YES FINALLY WAIT I NEED TO LOG THESE TERMINAL COMMANDS OMG
+Turn a .AVI to PNGs: ffmpeg -i video.avi -vf fps=30 image.png
+Turn PNGs to a .AVI: ffmpeg -framerate 30 -i image.png -codec copy video.avi
+Turn .mp4 to .AVI: ffmpeg -i video.mp4 -vcodec copy -acodec copy video.avi
+Further Processing tests must be done to conclude the effectiveness of this but looking good so far with this 1 frame lol
+OK so upon those further tests, all the frames are equivalent but... the videos themselves aren't (yipee). This is still a massive step in the right direction.
+OK wait interestingly enough, although the ffmpeg cmd to turn .mp4 into .avi gave videos with the same # of bytes in windows/linux, they were not equivalent (byte 8999 is different at the very least).
+OK so if mp4 -> v1 -> images1 -> v2 - > images2 -> v3, then v1!=v2!=v2, which sucks, because all the frames are equal and I literally just don't know enough about video formats to figure this out (it is 3 am tbf but I also feel more awake now than I do in most of my classes)
+OK SO IVE KINDA FIGURE OUT A WAY TO DO IT (lossless conversion of video->pngs->video)
+- video0.mp4 -> video1.avi
+- video1.avi -> images1.png
+- images1.png -> video2.avi
+- video2.avi -> images2.avi
+- images2.avi -> video3.avi
+- video3.avi -> images3.avi
+- images3.avi -> video4.avi
+After all that, we have video3.avi == video4.avi... I don't know why it doesn't happen in an earlier iteration but y'know we'll take it and optimize it from here at not literally 3 AM
+
