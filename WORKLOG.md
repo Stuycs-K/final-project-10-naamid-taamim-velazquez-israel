@@ -183,3 +183,8 @@ I lost the plot a little so here are the cmds we need:
 Turn .mp4 to .AVI: ffmpeg -i video.mp4 -vcodec copy -acodec copy video.avi
 Turn a .AVI to PNGs: ffmpeg -i video.avi -vf fps=30 image.png
 Turn PNGs to a .AVI: ffmpeg -framerate 30 -i image.png -codec copy video.avi
+
+
+### June 3, 2024
+ffmpeg -i input.mp4 x_%02d.tiff
+ffmpeg -framerate 25 -i x_%02d.tiff -c:v ffv1 video_y.mkv
