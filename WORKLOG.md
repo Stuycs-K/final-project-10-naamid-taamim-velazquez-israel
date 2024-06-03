@@ -93,6 +93,7 @@ decrypt comes next
 ### 6/3/24
 Encrypt also works with gifs now, forgot to do that earlier
 Pasting run command here: processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
+Need to fix encyrpting
 
 ## GROUP MEMBER 2: Taamim Naamid
 
