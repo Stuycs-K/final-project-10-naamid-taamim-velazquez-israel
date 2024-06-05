@@ -44,7 +44,7 @@ void setup() {
   }
   else if (FILE==MESSAGE) {
     newMessage = args[3];
-    parts = messageToArray(args[3]);
+    parts = messageToArray(newMessage);
   }
   else {
     parts = new int[2];
@@ -59,8 +59,8 @@ void setup() {
   }
   else if (FILE2==IMG) {
     oldGif = new Animation(args[6]);
-    x=oldImage.width;
-    y=oldImage.height;
+    x=oldGif.images[0].width;
+    y=oldGif.images[0].height;
   }
   else {
     x = 0;
@@ -155,48 +155,17 @@ int[] fileToArray(String name) {
 }
 
 void modifyFile(Animation gif, int[] parts) {
-  int whereInParts = 0;
-  for (int j=0; j<gif.frame; j++) {
-    PImage img = gif.images[j];
-    img.loadPixels();
-    int pixel = 0;
-    for (int i=whereInParts; i<parts.length && pixel<img.width * img.height; i+=3) {
-      if (i+2<parts.length) {
-        int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
-        int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
-        int blue = (int)(blue(img.pixels[pixel])+(parts[i+2]-((int)(blue(img.pixels[pixel]))&3)));
-        img.pixels[pixel] = color(red, green, blue);
-        pixel++;
-      }
-      else if (i+1<parts.length) {
-        int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
-        int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
-        img.pixels[pixel] = color(red, green, blue(img.pixels[pixel]));
-        pixel++;
-      }
-      else {
-        int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
-        img.pixels[pixel] = color(red, green(img.pixels[pixel]), blue(img.pixels[pixel]));
-        pixel++;
-      }
-      whereInParts = i;
-    }
-    if (whereInParts==parts.length-1) {
-      img.pixels[pixel] = color(255, 0, 0);
-      img.pixels[pixel+1] = color(0, 255, 0);
-      img.pixels[pixel+2] = color(0, 0, 255);
-      img.pixels[pixel+3] = color(255, 0, 0);
-      j+=gif.frame;
-    }
-    img.updatePixels();
+  int index = 0;
+  for (int i=0; i<gif.imageCount; i++) {
+    modifyFile(gif.images[i], parts, index);
+    index+=gif.images[i].width*gif.images[i].height;
   }
-  
 }
 
-void modifyFile(PImage img, int[] parts) {
+void modifyFile(PImage img, int[] parts, int index) {
   img.loadPixels();
   int pixel = 0;
-  for (int i=0; i<parts.length; i+=3) {
+  for (int i=index*3; i<parts.length; i+=3) {
     //print(red(img.pixels[i]) + " " + messageArray[i]+ " ");
     //int red = (int)(red(img.pixels[i])+(parts[i]-((int)(red(img.pixels[i]))&3)));
     //img.pixels[i] = color(red, green(img.pixels[i]), blue(img.pixels[i]));
@@ -206,26 +175,19 @@ void modifyFile(PImage img, int[] parts) {
       int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
       int blue = (int)(blue(img.pixels[pixel])+(parts[i+2]-((int)(blue(img.pixels[pixel]))&3)));
       img.pixels[pixel] = color(red, green, blue);
-      pixel++;
     }
     else if (i+1<parts.length) {
       int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
       int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
       img.pixels[pixel] = color(red, green, blue(img.pixels[pixel]));
-      pixel++;
     }
-    else {
+    else if (i<parts.length) {
       int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
       img.pixels[pixel] = color(red, green(img.pixels[pixel]), blue(img.pixels[pixel]));
-      pixel++;
     }
+    pixel++;
   }
-  // :BWEQJLRWhvsdljhbvsed;kjhgveouiybgekj;gh
-  // THIS IS VERY IMPORTANT, YOU NEED AN END TO THE ENCRYPTION
-	img.pixels[pixel] = color(255, 0, 0);
-	img.pixels[pixel+1] = color(0, 255, 0);
-	img.pixels[pixel+2] = color(0, 0, 255);
-	img.pixels[pixel+3] = color(255, 0, 0);
+
   img.updatePixels();
 }
 
