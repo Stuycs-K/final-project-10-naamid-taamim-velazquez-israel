@@ -101,6 +101,7 @@ encryption code seems to be broken. or background. it's verg trippy all honesty
 
 ### 6/5/24
 Started working encryption for images, seems to work when encyrpting. Gonna start on decrypting to make sure lmao
+Made sure Encrypt was compatible with decrypt. It seems to work with messages. I'm starting to work on a function to tell the decoder when to stop for both images/gifs and messages. 
 
 ## GROUP MEMBER 2: Taamim Naamid
 
