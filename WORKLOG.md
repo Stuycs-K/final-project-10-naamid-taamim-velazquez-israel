@@ -95,6 +95,10 @@ Encrypt also works with gifs now, forgot to do that earlier
 Pasting run command here: processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
 Need to fix encyrpting
 
+### 6/3/24 HW
+Ahh, white pixels overtook my images somehow
+encryption code seems to be broken. or background. it's verg trippy all honesty
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
