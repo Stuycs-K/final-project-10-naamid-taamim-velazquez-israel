@@ -188,3 +188,5 @@ Turn PNGs to a .AVI: ffmpeg -framerate 30 -i image.png -codec copy video.avi
 ### June 3, 2024
 ffmpeg -i input.mp4 x_%02d.tiff
 ffmpeg -framerate 25 -i x_%02d.tiff -c:v ffv1 video_y.mkv
+https://superuser.com/questions/881783/convert-from-avi-to-uncompressed-tiff-using-ffmpeg
+https://video.stackexchange.com/questions/16674/using-h264-in-loseless-mode-brings-small-unexpected-results/33681#33681
