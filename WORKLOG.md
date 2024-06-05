@@ -99,6 +99,9 @@ Need to fix encyrpting
 Ahh, white pixels overtook my images somehow
 encryption code seems to be broken. or background. it's verg trippy all honesty
 
+### 6/5/24
+Started working encryption for images, seems to work when encyrpting. Gonna start on decrypting to make sure lmao
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024

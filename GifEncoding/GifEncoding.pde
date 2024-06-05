@@ -19,7 +19,7 @@ int MODE;
 int FILE; int FILE2;
 String[] arr = new String[] {"MESSAGE", "IMAGE", "VIDEO", "GIF", "ENCRYPT", "DECRYPT", "DISPLAY", "DIFF_R", "DIFF_G", "DIFF_B", "DIFF"};
 PImage newImage; Animation newGif; String newMessage; //stuff to encode
-PImage oldImage; Animation oldGif; //stuff to encode into
+Animation oldGif; //stuff to encode into
 
 void setup() {
   size(0, 0);
@@ -72,9 +72,6 @@ void setup() {
   else if (MODE==DECRYPT) {
     
   }
-
-  
-  
 
   windowResize(x, y);
 }
@@ -157,15 +154,24 @@ int[] fileToArray(String name) {
 void modifyFile(Animation gif, int[] parts) {
   int index = 0;
   for (int i=0; i<gif.imageCount; i++) {
+    PImage img = gif.images[i];
+    int size = gif.images[i].width*gif.images[i].height;
     modifyFile(gif.images[i], parts, index);
-    index+=gif.images[i].width*gif.images[i].height;
+    index+=size;
+    if (index>=parts.length) {
+      int pixel = (parts.length/3)-index+size;
+      img.pixels[pixel+1] = color(255,0,0);
+      img.pixels[pixel+2] = color(0,255,0);
+      img.pixels[pixel+3] = color(0,0,255);
+      img.pixels[pixel+4] = color(255,0,0);
+    }
   }
 }
 
 void modifyFile(PImage img, int[] parts, int index) {
   img.loadPixels();
   int pixel = 0;
-  for (int i=index*3; i<parts.length; i+=3) {
+  for (int i=index*3; i<parts.length && pixel<img.width*img.height; i+=3) {
     //print(red(img.pixels[i]) + " " + messageArray[i]+ " ");
     //int red = (int)(red(img.pixels[i])+(parts[i]-((int)(red(img.pixels[i]))&3)));
     //img.pixels[i] = color(red, green(img.pixels[i]), blue(img.pixels[i]));
@@ -189,6 +195,40 @@ void modifyFile(PImage img, int[] parts, int index) {
   }
 
   img.updatePixels();
+}
+
+String decodeText(PImage img) {
+  img.loadPixels();
+  String end = "";
+  String bit = "";
+  for (int i=0; i<img.pixels.length; i++) {
+    int red = (int)(red(img.pixels[i]))&3;
+    int green = (int)(green(img.pixels[i]))&3;
+    int blue = (int)(blue(img.pixels[i]))&3;
+    bit += convertToBits(red) + convertToBits(green) + convertToBits(blue);
+    if (bit.length()>=8) {
+      end += (char)(Byte.parseByte(bit.substring(0, 8),2));
+    }
+  }
+
+  return end;
+}
+
+String convertToBits(int num) {
+  if (num==3) {
+    return "11";
+  }
+  else if (num==2) {
+    return "10";
+  }
+  else if (num==1) {
+    return "01";
+  }
+  return "00";
+}
+
+boolean checker(int num) { //Meant to detect if a color is all of one color
+  return true;
 }
 
 void modifyVideo(int[] parts) {
