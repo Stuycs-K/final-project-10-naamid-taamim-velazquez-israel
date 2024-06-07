@@ -68,10 +68,21 @@ void setup() {
   }
   if (MODE==ENCRYPT) {
     modifyFile(oldGif, parts);
+    byte[][] nums = new byte[oldGif.imageCount][oldGif.frame[0].width*oldGif.frame[0].height]
+    nums = getBytes(oldGif,nums[0].length);
+    saveBytes("Output.png", nums);
   }
   else if (MODE==DECRYPT) {
-    
+    if (FILE2==MESSAGE) {
+      print(decodeText(newGif.images[0]));
+    }
+    else {
+      
+    }
   }
+  //Decrypt
+  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto)
+  //                                                  0            1             2               3                  4                 5               6
 
   windowResize(x, y);
 }
@@ -159,13 +170,35 @@ void modifyFile(Animation gif, int[] parts) {
     modifyFile(gif.images[i], parts, index);
     index+=size;
     if (index>=parts.length) {
+      img.loadPixels();
       int pixel = (parts.length/3)-index+size;
       img.pixels[pixel+1] = color(255,0,0);
       img.pixels[pixel+2] = color(0,255,0);
       img.pixels[pixel+3] = color(0,0,255);
       img.pixels[pixel+4] = color(255,0,0);
+      img.updatePixels();
     }
   }
+}
+
+byte[] getBytes(PImage img, int total) {
+  byte[] nums = new byte[total];
+  img.loadPixels();
+  for (int i=0; i<total*4; i++) {
+    if (i%4==0) {
+      nums[i/4] = 0;
+    }
+    nums[i/4] = (byte)(nums[i/4]<<2);
+    byte red = (byte)((int)(red(img.pixels[i]))&3);
+    nums[i/4]+=red;
+    //print((nums[i/4]&3)+", ");
+  }
+  
+  //for (int i=0; i<total; i++) {
+  //  println(nums[i]);
+  //}
+  
+  return nums;
 }
 
 void modifyFile(PImage img, int[] parts, int index) {
@@ -177,7 +210,9 @@ void modifyFile(PImage img, int[] parts, int index) {
     //img.pixels[i] = color(red, green(img.pixels[i]), blue(img.pixels[i]));
     //println(red(img.pixels[i]));
     if (i+2<parts.length) {
-      int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
+      int red = (int)(red(img.pixels[pixel])+
+      (parts[i]-
+      ((int)(red(img.pixels[pixel]))&3)));
       int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
       int blue = (int)(blue(img.pixels[pixel])+(parts[i+2]-((int)(blue(img.pixels[pixel]))&3)));
       img.pixels[pixel] = color(red, green, blue);
@@ -207,7 +242,13 @@ String decodeText(PImage img) {
     int blue = (int)(blue(img.pixels[i]))&3;
     bit += convertToBits(red) + convertToBits(green) + convertToBits(blue);
     if (bit.length()>=8) {
-      end += (char)(Byte.parseByte(bit.substring(0, 8),2));
+      if (!bit.substring(0,8).equals("11111111")) {
+        end += (char)(Byte.parseByte(bit.substring(0, 8),2));
+        bit = bit.substring(8);
+      }
+      else {
+        i+=img.pixels.length;
+      }
     }
   }
 

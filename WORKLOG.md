@@ -107,6 +107,12 @@ Made sure Encrypt was compatible with decrypt. It seems to work with messages. I
 Decrypt for text needs to have the check for "11111111" at the end of thr encryption
 a much harder one to check for is the image all red, green, blue, red pixels back to back. But I'll manage
 
+### 6/5/24
+Testing decrypt text. Should soon be working
+jhgvljshdabvkshqljrbveliwqybv
+Lot of things to focus on. My brain seems to have fried. Will work a lot on this later to make sure I don't fail Taamim
+Need to save to a new image, need to make sure to have a print message, need to fix decode/encrypt. AHHH
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
