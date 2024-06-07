@@ -68,7 +68,7 @@ void setup() {
   }
   if (MODE==ENCRYPT) {
     modifyFile(oldGif, parts);
-    byte[][] nums = new byte[oldGif.imageCount][oldGif.frame[0].width*oldGif.frame[0].height]
+    byte[][] nums = new byte[oldGif.imageCount][oldGif.frame[0].width*oldGif.frame[0].height];
     nums = getBytes(oldGif,nums[0].length);
     saveBytes("Output.png", nums);
   }
@@ -181,22 +181,22 @@ void modifyFile(Animation gif, int[] parts) {
   }
 }
 
-byte[] getBytes(PImage img, int total) {
-  byte[] nums = new byte[total];
+byte[][] getBytes(PImage img, int total) {
+  byte[][] nums = new byte[total];
   img.loadPixels();
-  for (int i=0; i<total*4; i++) {
-    if (i%4==0) {
-      nums[i/4] = 0;
-    }
-    nums[i/4] = (byte)(nums[i/4]<<2);
-    byte red = (byte)((int)(red(img.pixels[i]))&3);
-    nums[i/4]+=red;
-    //print((nums[i/4]&3)+", ");
-  }
-  
-  //for (int i=0; i<total; i++) {
-  //  println(nums[i]);
+  //for (int i=0; i<total*4; i++) {
+  //  if (i%4==0) {
+  //    nums[i/4] = 0;
+  //  }
+  //  nums[i/4] = (byte)(nums[i/4]<<2);
+  //  byte red = (byte)((int)(red(img.pixels[i]))&3);
+  //  nums[i/4]+=red;
+  //  //print((nums[i/4]&3)+", ");
   //}
+  
+  ////for (int i=0; i<total; i++) {
+  ////  println(nums[i]);
+  ////}
   
   return nums;
 }
