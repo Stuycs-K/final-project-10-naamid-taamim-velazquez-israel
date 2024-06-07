@@ -163,23 +163,23 @@ void modifyFile(PImage img, int[] parts) {
     //img.pixels[i] = color(red, green(img.pixels[i]), blue(img.pixels[i]));
     //println(red(img.pixels[i]));
     if (i+2<parts.length) {
-      int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
+      int red = (int)(red(img.pixels[pixel])+
+      (parts[i]-
+      ((int)(red(img.pixels[pixel]))&3)));
       int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
       int blue = (int)(blue(img.pixels[pixel])+(parts[i+2]-((int)(blue(img.pixels[pixel]))&3)));
       img.pixels[pixel] = color(red, green, blue);
-      pixel++;
     }
     else if (i+1<parts.length) {
       int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
       int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
       img.pixels[pixel] = color(red, green, blue(img.pixels[pixel]));
-      pixel++;
     }
     else {
       int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
       img.pixels[pixel] = color(red, green(img.pixels[pixel]), blue(img.pixels[pixel]));
-      pixel++;
     }
+    pixel++;
   }
   // :BWEQJLRWhvsdljhbvsed;kjhgveouiybgekj;gh
   // THIS IS VERY IMPORTANT, YOU NEED AN END TO THE ENCRYPTION
