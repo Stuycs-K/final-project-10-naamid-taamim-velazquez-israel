@@ -188,5 +188,26 @@ Turn PNGs to a .AVI: ffmpeg -framerate 30 -i image.png -codec copy video.avi
 ### June 3, 2024
 ffmpeg -i input.mp4 x_%02d.tiff
 ffmpeg -framerate 25 -i x_%02d.tiff -c:v ffv1 video_y.mkv
+
+### June 5, 2024 (HW)
+Did some researching and stuff about ffmpeg, forgot to add it in worklog :(
+
+### June 5, 2024
+I did this in class but forgot to put the header or something?
+
+ffmpeg -i 1sec.mp4 -lossless 0 -compression_level 0 -vf fps=24 temp2/stuff%02d.png
+ffmpeg -i temp2/stuff%02d.png -c:v ffv1 1secv5.avi
 https://superuser.com/questions/881783/convert-from-avi-to-uncompressed-tiff-using-ffmpeg
 https://video.stackexchange.com/questions/16674/using-h264-in-loseless-mode-brings-small-unexpected-results/33681#33681
+
+### June 7, 2024 (HW)
+OMG WE FIGURED IT OUT NO WAYYY THE VIDEO AND THE FRAMES ARE IDENTICAL YIPEE
+This were my original commands:
+ffmpeg -i 1secv2.avi -lossless 0 -compression_level 0 -vf fps=25 natural/original%02d.tif
+ffmpeg -i temp/stuff%02d.tif -framerate 24 -c:v ffv1 1secv2.avi
+
+AND THEN I REALIZED THAT NOTHING I WAS DOING BEFORE MATTERED LITERALLY THOSE WERE COSMETIC COMMANDS (they did some things, just not anything that I needed)
+ffmpeg -i video -compression_level 0 images.tif 
+ffmpeg -i images.tif -c:v ffv1 video
+
+However, for an fps of X, you can still use -vf fps=(X+1) on the line where you extract images and -framerate X when you turn images into videos
