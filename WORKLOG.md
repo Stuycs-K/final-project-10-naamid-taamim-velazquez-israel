@@ -103,6 +103,10 @@ encryption code seems to be broken. or background. it's verg trippy all honesty
 Started working encryption for images, seems to work when encyrpting. Gonna start on decrypting to make sure lmao
 Made sure Encrypt was compatible with decrypt. It seems to work with messages. I'm starting to work on a function to tell the decoder when to stop for both images/gifs and messages. 
 
+### 6/5/24 HW
+Decrypt for text needs to have the check for "11111111" at the end of thr encryption
+a much harder one to check for is the image all red, green, blue, red pixels back to back. But I'll manage
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
