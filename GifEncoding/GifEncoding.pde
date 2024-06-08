@@ -33,8 +33,8 @@ void setup() {
   boolean maybe = true;
   String[] args = new String[7];
   if (maybe) {
-    boolean runMessage = false;
-    if (runMessage) {
+    int runMessage = 3;
+    if (runMessage==0) {
       args[0] = "4"; // MODE
       args[1] = "0"; // file1
       args[2] = "1"; // frame1
@@ -43,7 +43,7 @@ void setup() {
       args[5] = "1"; // frame2
       args[6] = "./data/normal/cat.png"; // encodedInto
     }
-    else {
+    else if (runMessage==1) {
       args[0] = "5"; // MODE
       args[1] = "1"; // file1
       args[2] = "1"; // frame1
@@ -51,6 +51,24 @@ void setup() {
       args[4] = "0"; // file2
       args[5] = "1"; // frame2
       args[6] = "terminal"; // decodeInto
+    }
+    else if (runMessage==2) {
+      args[0] = "4"; // MODE
+      args[1] = "0"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "This is a message"; // encodeInto
+      args[4] = "3"; // file2
+      args[5] = "30"; // frame2
+      args[6] = "./data/normal/normal"; // encodedInto
+    }
+    else if (runMessage==3) {
+      args[0] = "5"; // MODE
+      args[1] = "3"; // file1
+      args[2] = "30"; // frame1
+      args[3] = "./data/edited/"; // encodeInto
+      args[4] = "0"; // file2
+      args[5] = "1"; // frame2
+      args[6] = "terminal"; // encodedInto
     }
   }
   MODE = Integer.parseInt(args[0]);
@@ -65,7 +83,7 @@ void setup() {
     //String filename = args[3].substring(0, args[3].indexOf("."));
     String filename = args[3];
     newGif = new Animation(filename, Integer.parseInt(args[2]));
-    parts = fileToArray(args[3]);
+    parts = newGif.parts;
   }
   else if (FILE==IMG) {
     newGif = new Animation(args[3]);
@@ -106,7 +124,7 @@ void setup() {
       print(decodeText(newGif.images[0]));
     }
     else {
-      
+      print(decodeTextGif(newGif));
     }
   }
 
@@ -197,13 +215,21 @@ void modifyFile(Animation gif, int[] parts) {
     index+=size;
     if (index>=parts.length) {
       img.loadPixels();
-      int pixel = (parts.length/3)-index+size;
+      //println((parts.length/3)-+size+(parts.length%3+2)/3);
+      //println(index);
+      //println(size);
+      int pixel = (parts.length/3)-index+size+(parts.length%3+2)/3;
       img.pixels[pixel+1] = color(255,0,0);
       img.pixels[pixel+2] = color(0,255,0);
       img.pixels[pixel+3] = color(0,0,255);
       img.pixels[pixel+4] = color(255,0,0);
       img.updatePixels();
+      i+=gif.imageCount;
     }
+  }
+  
+  for (int i=0; i<gif.imageCount;i++) {
+    PImage img = gif.images[i];
     img.save("./data/edited/"+ nf(i,5)+".png");
   }
 }
@@ -278,7 +304,34 @@ String decodeText(PImage img) {
       }
     }
   }
+  return end;
+}
 
+String decodeTextGif(Animation gif) {
+  String end = "";
+  String bit = "";
+  for (int i=0; i<gif.imageCount; i++) {
+    PImage img = gif.images[i];
+    img.loadPixels();
+    for (int j=0; j<img.pixels.length; j++) {
+      int red = (int)(red(img.pixels[j]))&3;
+      int green = (int)(green(img.pixels[j]))&3;
+      int blue = (int)(blue(img.pixels[j]))&3;
+      bit += convertToBits(red) + convertToBits(green) + convertToBits(blue);
+      if (j+3<img.pixels.length) {
+        if ((int)(red(img.pixels[j]))==255 && (int)(green(img.pixels[j+1]))==255 && (int)(blue(img.pixels[j+2]))==255 && (int)(red(img.pixels[j+3]))==255) {
+          i+=gif.imageCount;
+          j+=img.pixels.length;
+        }
+        else {
+          end += (char)(Byte.parseByte(bit.substring(0, 8),2));
+          bit = bit.substring(8);
+        }
+      }
+    }
+  }
+  
+  
   return end;
 }
 
@@ -293,10 +346,6 @@ String convertToBits(int num) {
     return "01";
   }
   return "00";
-}
-
-boolean checker(int num) { //Meant to detect if a color is all of one color
-  return true;
 }
 
 void modifyVideo(int[] parts) {
