@@ -33,7 +33,7 @@ void setup() {
   boolean maybe = true;
   String[] args = new String[7];
   if (maybe) {
-    int runMessage = 3;
+    int runMessage = 5;
     if (runMessage==0) {
       args[0] = "4"; // MODE
       args[1] = "0"; // file1
@@ -75,7 +75,7 @@ void setup() {
       args[0] = "4"; // MODE
       args[1] = "1"; // file1
       args[2] = "1"; // frame1
-      args[3] = "./data/normal/normal00.png"; // encodeInto
+      args[3] = "./data/normal/normal00000.png"; // encodeInto
       args[4] = "1"; // file2
       args[5] = "1"; // frame2
       args[6] = "./data/normal/cat.png"; // encodedInto
@@ -84,7 +84,7 @@ void setup() {
       args[0] = "5"; // MODE
       args[1] = "1"; // file1
       args[2] = "1"; // frame1
-      args[3] = "./data/edited/"; // encodeInto
+      args[3] = "./data/edited/00000.png"; // encodeInto
       args[4] = "1"; // file2
       args[5] = "1"; // frame2
       args[6] = "./data/normal/cat.png"; // encodedInto
@@ -147,6 +147,9 @@ void setup() {
         print(decodeTextGif(newGif));
       }
     }
+    else {
+      
+    }
   }
 
   windowResize(x, y);
@@ -180,12 +183,6 @@ void keyPressed() {
  }
  if (MODE>DIFF) {
    MODE=DISPLAY;
- }
- if (key=='f') {
-   FILE++;
- }
- if (FILE>GIF) {
-   FILE=MESSAGE; 
  }
 }
 
@@ -255,24 +252,56 @@ void modifyFile(Animation gif, int[] parts) {
   }
 }
 
-byte[][] getBytes(PImage img, int total) {
-  byte[][] nums = new byte[total][];
+byte[] decodeImage(Animation gif) {
+  byte[] num = new byte[gif.images[0].width*gif.images[0].height];
+  int byteNum = 0;
+  PImage img = gif.images[0];
   img.loadPixels();
-  //for (int i=0; i<total*4; i++) {
-  //  if (i%4==0) {
-  //    nums[i/4] = 0;
-  //  }
-  //  nums[i/4] = (byte)(nums[i/4]<<2);
-  //  byte red = (byte)((int)(red(img.pixels[i]))&3);
-  //  nums[i/4]+=red;
-  //  //print((nums[i/4]&3)+", ");
-  //}
+  for (int i=0; i<img.pixels.length; i++) {
+    num[byteNum] = (byte)(num[byteNum]<<2);
+    num[byteNum] += (byte)(red(img.pixels[i]))&3;
+    if (i%4==1) {
+      byteNum++;
+      if (checker(img, i)) {
+        break;
+      }
+    }
+    num[byteNum] = (byte)(num[byteNum]<<2);
+    num[byteNum] += (byte)(green(img.pixels[i]))&3;
+    if (i%4==2) {
+      byteNum++;
+      if (checker(img, i)) {
+        break;
+      }
+    }
+    num[byteNum] = (byte)(num[byteNum]<<2);
+    num[byteNum] += (byte)(blue(img.pixels[i]))&3;
+    if (i%4==3) {
+      byteNum++;
+      if (checker(img, i)) {
+        break;
+      }
+    }
+  }
   
-  ////for (int i=0; i<total; i++) {
-  ////  println(nums[i]);
-  ////}
+  byte[] returned = new byte[byteNum];
+  for (int i=0; i<byteNum; i++) {
+    returned[i] = num[i];
+  }
   
-  return nums;
+  return returned;
+  
+}
+
+int change(int tracker) {
+  if (tracker==3) {
+    return 0;
+  }
+  return tracker+1;
+}
+
+boolean checker(PImage img, int index) {
+  return (int)(red(img.pixels[index]))==255 && (int)(red(img.pixels[index+3]))==255 && (int)(blue(img.pixels[index+2]))==255 && (int)(green(img.pixels[index+1]))==255;
 }
 
 void modifyFile(PImage img, int[] parts, int index) {
