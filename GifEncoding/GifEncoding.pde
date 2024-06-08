@@ -25,6 +25,11 @@ void setup() {
   size(0, 0);
   //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
   //                                                  0            1             2               3                  4                 5               6
+  //processing-java --sketch="./GifEncoding/" --run 4 0 1 "This is a message" 1 1 0-
+  //Decrypt
+  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto)
+  //                                                  0            1             2               3                  4                 5               6
+
   //boolean maybe = true;
   //if (maybe) {
   //  boolean runMessage = true;
@@ -82,9 +87,9 @@ void setup() {
   }
   if (MODE==ENCRYPT) {
     modifyFile(oldGif, parts);
-    byte[][] nums = new byte[oldGif.imageCount][oldGif.frame[0].width*oldGif.frame[0].height];
-    nums = getBytes(oldGif,nums[0].length);
-    saveBytes("Output.png", nums);
+    //byte[][] nums = new byte[oldGif.imageCount][oldGif.frame[0].width*oldGif.frame[0].height];
+    //nums = getBytes(oldGif,nums[0].length);
+    //saveBytes("Output.png", nums);
   }
   else if (MODE==DECRYPT) {
     if (FILE2==MESSAGE) {
@@ -94,9 +99,6 @@ void setup() {
       
     }
   }
-  //Decrypt
-  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto)
-  //                                                  0            1             2               3                  4                 5               6
 
   windowResize(x, y);
 }
@@ -192,7 +194,7 @@ void modifyFile(Animation gif, int[] parts) {
       img.pixels[pixel+4] = color(255,0,0);
       img.updatePixels();
     }
-    img.save(""+ nf(i,5)+".png");
+    img.save("./data/edited/"+ nf(i,5)+".png");
   }
 }
 
