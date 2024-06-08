@@ -134,9 +134,6 @@ void setup() {
   }
   if (MODE==ENCRYPT) {
     modifyFile(oldGif, parts);
-    //byte[][] nums = new byte[oldGif.imageCount][oldGif.frame[0].width*oldGif.frame[0].height];
-    //nums = getBytes(oldGif,nums[0].length);
-    //saveBytes("Output.png", nums);
   }
   else if (MODE==DECRYPT) {
     if (FILE2==MESSAGE) {
@@ -147,8 +144,12 @@ void setup() {
         print(decodeTextGif(newGif));
       }
     }
-    else {
-      
+    else if (FILE2==IMG) {
+      byte[] arr = decodeImage(newGif);
+      saveBytes("00000.png",arr);
+      oldGif=new Animation("00000.png");
+      x = oldGif.images[0].width;
+      y=oldGif.images[0].height;
     }
   }
 
