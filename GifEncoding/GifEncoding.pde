@@ -29,20 +29,30 @@ void setup() {
   //Decrypt
   //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto)
   //                                                  0            1             2               3                  4                 5               6
-
-  //boolean maybe = true;
-  //if (maybe) {
-  //  boolean runMessage = true;
-  //  if (runMessage) {
-  //    args[0] = "0"; // MODE
-  //    args[1] = "0"; // file1
-  //    args[2] = "0"; // frame1
-  //    args[3] = "0"; // encodeInto
-  //    args[4] = "0"; // file2
-  //    args[5] = "0"; // frame2
-  //    args[6] = "0"; // encodedInto
-  //  }  
-  //}
+  //processing-java --sketch="./GifEncoding/" --run 4 0 1 "This is a message" 1 1 0-
+  boolean maybe = true;
+  String[] args = new String[7];
+  if (maybe) {
+    boolean runMessage = false;
+    if (runMessage) {
+      args[0] = "4"; // MODE
+      args[1] = "0"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "This is a message"; // encodeInto
+      args[4] = "1"; // file2
+      args[5] = "1"; // frame2
+      args[6] = "./data/normal/cat.png"; // encodedInto
+    }
+    else {
+      args[0] = "5"; // MODE
+      args[1] = "1"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "./data/edited/00000.png"; // encoded
+      args[4] = "0"; // file2
+      args[5] = "1"; // frame2
+      args[6] = "terminal"; // decodeInto
+    }
+  }
   MODE = Integer.parseInt(args[0]);
   FILE = Integer.parseInt(args[1]);
   FILE2 = Integer.parseInt(args[4]);
