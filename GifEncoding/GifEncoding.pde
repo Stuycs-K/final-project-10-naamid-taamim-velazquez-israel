@@ -25,19 +25,19 @@ void setup() {
   size(0, 0);
   //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
   //                                                  0            1             2               3                  4                 5               6
-  boolean maybe = true;
-  if (maybe) {
-    boolean runMessage = true;
-    if (runMessage) {
-      args[0] = "0"; // MODE
-      args[1] = "0"; // MODE
-      args[2] = "0"; // MODE
-      args[3] = "0"; // MODE
-      args[4] = "0"; // MODE
-      args[5] = "0"; // MODE
-      args[6] = "0"; // MODE
-    }  
-  }
+  //boolean maybe = true;
+  //if (maybe) {
+  //  boolean runMessage = true;
+  //  if (runMessage) {
+  //    args[0] = "0"; // MODE
+  //    args[1] = "0"; // file1
+  //    args[2] = "0"; // frame1
+  //    args[3] = "0"; // encodeInto
+  //    args[4] = "0"; // file2
+  //    args[5] = "0"; // frame2
+  //    args[6] = "0"; // encodedInto
+  //  }  
+  //}
   MODE = Integer.parseInt(args[0]);
   FILE = Integer.parseInt(args[1]);
   FILE2 = Integer.parseInt(args[4]);
@@ -192,11 +192,12 @@ void modifyFile(Animation gif, int[] parts) {
       img.pixels[pixel+4] = color(255,0,0);
       img.updatePixels();
     }
+    img.save(""+ nf(i,5)+".png");
   }
 }
 
 byte[][] getBytes(PImage img, int total) {
-  byte[][] nums = new byte[total];
+  byte[][] nums = new byte[total][];
   img.loadPixels();
   //for (int i=0; i<total*4; i++) {
   //  if (i%4==0) {

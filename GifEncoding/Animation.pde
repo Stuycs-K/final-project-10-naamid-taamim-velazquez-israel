@@ -3,15 +3,18 @@ public class Animation {
   PImage[] images;
   int imageCount;
   int frame;
+  byte[][] nums;
   
   public Animation(String imagePrefix, int count) {
     imageCount = count;
     images = new PImage[imageCount];
+    nums = new byte[imageCount][];
 
     for (int i = 0; i < imageCount; i++) {
       // Use nf() to number format 'i' into four digits
       String filename = imagePrefix +nf(i,5) + ".png";
       images[i] = loadImage(filename);
+      nums[i] = loadBytes(filename);
     }
   }
   
