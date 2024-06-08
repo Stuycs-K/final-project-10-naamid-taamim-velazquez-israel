@@ -84,34 +84,11 @@ I still need to be able to end the encrption whenever so then I need a closing s
 moved some stuff from the setup to the draw
 Need to finish Decrypt
 
-### 5/31/24 HW
+### 5/31/24 GW
 Finished Encryption
 Encryption now needs red, green, blue, and then a red pixel back to back at the very end
 I find this hughly improbably to find in a file naturally, so imma keep it
 decrypt comes next
-
-### 6/3/24
-Encrypt also works with gifs now, forgot to do that earlier
-Pasting run command here: processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
-Need to fix encyrpting
-
-### 6/3/24 HW
-Ahh, white pixels overtook my images somehow
-encryption code seems to be broken. or background. it's verg trippy all honesty
-
-### 6/5/24
-Started working encryption for images, seems to work when encyrpting. Gonna start on decrypting to make sure lmao
-Made sure Encrypt was compatible with decrypt. It seems to work with messages. I'm starting to work on a function to tell the decoder when to stop for both images/gifs and messages. 
-
-### 6/5/24 HW
-Decrypt for text needs to have the check for "11111111" at the end of thr encryption
-a much harder one to check for is the image all red, green, blue, red pixels back to back. But I'll manage
-
-### 6/5/24
-Testing decrypt text. Should soon be working
-jhgvljshdabvkshqljrbveliwqybv
-Lot of things to focus on. My brain seems to have fried. Will work a lot on this later to make sure I don't fail Taamim
-Need to save to a new image, need to make sure to have a print message, need to fix decode/encrypt. AHHH
 
 ## GROUP MEMBER 2: Taamim Naamid
 
@@ -212,36 +189,10 @@ Turn PNGs to a .AVI: ffmpeg -framerate 30 -i image.png -codec copy video.avi
 ffmpeg -i input.mp4 x_%02d.tiff
 ffmpeg -framerate 25 -i x_%02d.tiff -c:v ffv1 video_y.mkv
 
-### June 5, 2024 (HW)
-Did some researching and stuff about ffmpeg, forgot to add it in worklog :(
+### June 4, 2024 (HW)
+Just did some more research, failed :(
 
-### June 5, 2024
-I did this in class but forgot to put the header or something?
-
-ffmpeg -i 1sec.mp4 -lossless 0 -compression_level 0 -vf fps=24 temp2/stuff%02d.png
-ffmpeg -i temp2/stuff%02d.png -c:v ffv1 1secv5.avi
+### June 4, 2024 
+ffmpeg -i 1secv1.avi -compression_algo raw -pix_fmt rgb24 original%02d.tiff
 https://superuser.com/questions/881783/convert-from-avi-to-uncompressed-tiff-using-ffmpeg
-https://video.stackexchange.com/questions/16674/using-h264-in-loseless-mode-brings-small-unexpected-results/33681#33681
-
-### June 7, 2024 (HW)
-OMG WE FIGURED IT OUT NO WAYYY THE VIDEO AND THE FRAMES ARE IDENTICAL YIPEE
-This were my original commands:
-ffmpeg -i 1secv2.avi -lossless 0 -compression_level 0 -vf fps=25 natural/original%02d.tif
-ffmpeg -i temp/stuff%02d.tif -framerate 24 -c:v ffv1 1secv2.avi
-
-AND THEN I REALIZED THAT NOTHING I WAS DOING BEFORE MATTERED LITERALLY THOSE WERE COSMETIC COMMANDS (they did some things, just not anything that I needed)
-ffmpeg -i video -compression_level 0 images.tif 
-ffmpeg -i images.tif -c:v ffv1 video
-
-However, for an fps of X, you can still use -vf fps=(X+1) on the line where you extract images and -framerate X when you turn images into videos
-
-### June 7, 2024
-So turns out the way we were doing GIFs was not lossless... oops
-Fear not, I have figured out how to do it anyways
-What we can do is
-
-ffmpeg -i gif -codec copy gif
-ffmpeg -i gif -compression_level 0 images.png
-ffmpeg -i images.png gif
-
-Also I think that we need to finish encoding/decoding lol
+h

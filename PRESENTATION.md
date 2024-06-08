@@ -11,5 +11,14 @@ This can be done by downloading another processing folder, then:
 - `export PATH="<PATH TO PROCESSING FOLDER>:$PATH"`
 Note: The processing-java file must live with processing.exe (supposedly)
 
-convert smth.gif %05d.png 
-(turns a gif into all of its frames that are just like 00000.png 00001.png, etc)
+# Let's Encode a GIF
+
+So, you probably remember that one image processing lab where we encoded images and text and stuff onto other images, but what if we did this with a GIF?
+I mean, theoretically, a GIF is just a series of images, so this shoulnd't be that unreasonable, right?
+Yes, in fact, this is not that unreasonable of a task if you go about it with the right approach.
+However, we must consider some reasons why we are allowed to use GIFs instead of other "video" formats
+
+## Why are GIFs usable?
+
+GIFs are a collection of PNGs, which is really important because it means that GIFs are lossless. This allows us to extract each of the PNGs in a GIF and put them back into a GIF without any shenanigans.
+To do this, we have a variety of options. We can use tools such as FFMpeg

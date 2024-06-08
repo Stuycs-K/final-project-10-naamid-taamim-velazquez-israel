@@ -75,11 +75,16 @@ void setup() {
     byte byteHolder1[] = loadBytes("1secv1.avi");
     byte byteHolder2[] = loadBytes("1secv2.avi");
     print(byteHolder1.length+" "+byteHolder2.length);
+    boolean test = true;
     for (int i=0;i<byteHolder1.length;i++) {
       if (byteHolder1[i]!=byteHolder2[i]) {
-        print(i);
+        print("\nERROR: "+i);
+        test = false;
         break;
       }
+    }
+    if (test) {
+      print("\nYO THEY THE SAME");
     }
   }
 }
