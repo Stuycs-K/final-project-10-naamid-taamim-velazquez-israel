@@ -70,6 +70,25 @@ void setup() {
       args[5] = "1"; // frame2
       args[6] = "terminal"; // encodedInto
     }
+    
+    else if (runMessage==4) {
+      args[0] = "4"; // MODE
+      args[1] = "1"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "./data/normal/normal00.png"; // encodeInto
+      args[4] = "1"; // file2
+      args[5] = "1"; // frame2
+      args[6] = "./data/normal/cat.png"; // encodedInto
+    }
+    else if (runMessage==5) {
+      args[0] = "5"; // MODE
+      args[1] = "1"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "./data/edited/"; // encodeInto
+      args[4] = "1"; // file2
+      args[5] = "1"; // frame2
+      args[6] = "./data/normal/cat.png"; // encodedInto
+    }
   }
   MODE = Integer.parseInt(args[0]);
   FILE = Integer.parseInt(args[1]);
@@ -121,10 +140,12 @@ void setup() {
   }
   else if (MODE==DECRYPT) {
     if (FILE2==MESSAGE) {
-      print(decodeText(newGif.images[0]));
-    }
-    else {
-      print(decodeTextGif(newGif));
+      if (FILE==IMG) {
+        print(decodeText(newGif.images[0]));
+      }
+      else {
+        print(decodeTextGif(newGif));
+      }
     }
   }
 
@@ -132,8 +153,8 @@ void setup() {
 }
 
 void draw() {
-  
-  if (MODE==DISPLAY) {
+  MODE = DISPLAY;
+  if (MODE==DISPLAY && oldGif!=null) {
     background(255,255,255);
     oldGif.display(0,0);
     delay(1000);
@@ -318,14 +339,14 @@ String decodeTextGif(Animation gif) {
       int green = (int)(green(img.pixels[j]))&3;
       int blue = (int)(blue(img.pixels[j]))&3;
       bit += convertToBits(red) + convertToBits(green) + convertToBits(blue);
-      if (j+3<img.pixels.length) {
-        if ((int)(red(img.pixels[j]))==255 && (int)(green(img.pixels[j+1]))==255 && (int)(blue(img.pixels[j+2]))==255 && (int)(red(img.pixels[j+3]))==255) {
-          i+=gif.imageCount;
-          j+=img.pixels.length;
-        }
-        else {
+      if (bit.length()>=8) {
+        if (!bit.substring(0,8).equals("11111111")) {
           end += (char)(Byte.parseByte(bit.substring(0, 8),2));
           bit = bit.substring(8);
+        }
+        else {
+          j+=img.pixels.length;
+          i+=gif.imageCount;
         }
       }
     }
