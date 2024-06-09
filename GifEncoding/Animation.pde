@@ -18,8 +18,10 @@ public class Animation {
       //String filename = imagePrefix +".png";
       images[i] = loadImage(filename);
       nums[i] = fileToArray(filename);
-      size+=nums[i].length;
+      size+=nums[i].length;  
     }
+    println(size);
+    println(nums[0].length);
     parts = new int[size];
     int tmp = 0;
     for (int i=0; i<nums.length; i++) {
@@ -28,7 +30,6 @@ public class Animation {
       }
       tmp+=nums[i].length;
     }
-    
   }
   
   public Animation(String imagePrefix) {
@@ -36,6 +37,7 @@ public class Animation {
     images = new PImage[1];
 
     images[0] = loadImage(imagePrefix);
+    
   }
 
   void display(float xpos, float ypos) {

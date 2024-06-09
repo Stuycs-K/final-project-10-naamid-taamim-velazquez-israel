@@ -23,17 +23,17 @@ Animation oldGif; //stuff to encode into
 
 void setup() {
   size(0, 0);
-  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
-  //                                                  0            1             2               3                  4                 5               6
+  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto) (int copout)
+  //                                                  0            1             2               3                  4                 5               6               7
   //processing-java --sketch="./GifEncoding/" --run 4 0 1 "This is a message" 1 1 0-
   //Decrypt
-  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto)
-  //                                                  0            1             2               3                  4                 5               6
+  //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto) (int copout)
+  //                                                  0            1             2               3                  4                 5               6                      7
   //processing-java --sketch="./GifEncoding/" --run 4 0 1 "This is a message" 1 1 0-
   boolean maybe = true;
-  String[] args = new String[7];
+  String[] args = new String[9];
   if (maybe) {
-    int runMessage = 7;
+    int runMessage = 8;
     if (runMessage==0) {
       args[0] = "4"; // MODE
       args[1] = "0"; // file1
@@ -70,7 +70,6 @@ void setup() {
       args[5] = "1"; // frame2
       args[6] = "terminal"; // encodedInto
     }
-    
     else if (runMessage==4) {
       args[0] = "4"; // MODE
       args[1] = "1"; // file1
@@ -87,9 +86,9 @@ void setup() {
       args[3] = "./data/edited/00000.png"; // encodeInto
       args[4] = "1"; // file2
       args[5] = "1"; // frame2
-      args[6] = "./data/normal/cat.png"; // encodedInto
+      args[6] = "./data/normal/returned.png"; // encodedInto
     }
-    else if (runMessage==6) {
+    else if (runMessage==6) { // Not working: image onto gif
       args[0] = "4"; // MODE
       args[1] = "1"; // file1
       args[2] = "1"; // frame1
@@ -98,7 +97,7 @@ void setup() {
       args[5] = "30"; // frame2
       args[6] = "./data/normal/normal"; // encodedInto
     }
-    else if (runMessage==7) {
+    else if (runMessage==7) { // not working: image from gif
       args[0] = "5"; // MODE
       args[1] = "3"; // file1
       args[2] = "30"; // frame1
@@ -106,6 +105,27 @@ void setup() {
       args[4] = "1"; // file2
       args[5] = "1"; // frame2
       args[6] = "./data/normal/cats.png"; // encodedInto
+      args[7] = "117240"; // Amount of bytes
+    }
+    else if (runMessage==8) { // gif onto image
+      args[0] = "4"; // MODE
+      args[1] = "3"; // file1
+      args[2] = "30"; // frame1
+      args[3] = "./data/normal/normal"; // encodeInto
+      args[4] = "1"; // file2
+      args[5] = "1"; // frame2
+      args[6] = "./data/normal/big.png"; // encodedInto
+    }
+    else if (runMessage==9) { // gif from image
+      args[0] = "5"; // MODE
+      args[1] = "1"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "./data/edited/00000.png"; // encodeInto
+      args[4] = "3"; // file2
+      args[5] = "30"; // frame2
+      args[6] = "./data/normal/cats"; // encodedInto
+      args[7] = "116280"; //How big parts is
+      args[8] = "3876";
     }
   }
   MODE = Integer.parseInt(args[0]);
@@ -162,42 +182,53 @@ void setup() {
         print(decodeTextGif(newGif));
       }
     }
-    else {
+    else if (FILE2==IMG) {
       byte[] arr;
-      if (FILE2==IMG) {
-        arr = decodeImage(newGif);
-      }
-      else {
-        arr = decodeImageFromGif(newGif);
-      }
+      arr = decodeImageFromGif(newGif, Integer.parseInt(args[7]));
       saveBytes(args[6],arr);
       oldGif=new Animation(args[6]);
       x = oldGif.images[0].width;
       y=oldGif.images[0].height;
     }
+    else { // FILE2 is a gif
+      byte[] arr;
+      arr = decodeImageFromGif(newGif, Integer.parseInt(args[7]));
+      byte[][] arr2 = new byte[Integer.parseInt(args[5])][];
+      int distance = Integer.parseInt(args[8]);
+      split(arr2, arr, distance);
+      for (int i=0; i<arr2.length; i++) {
+        saveBytes(args[6]+nf(i,5)+".png",arr2[i]);
+        //if (i<arr2.length/3) {
+        //  println(Arrays.toString(arr2[i]));
+        //}
+      }
+      oldGif=new Animation(args[6], arr2.length);
+      x = oldGif.images[0].width;
+      y=oldGif.images[0].height;
+    }
   }
-
+  MODE = DISPLAY;
   windowResize(x, y);
 }
 
 void draw() {
-  MODE = DISPLAY;
+  
   if (MODE==DISPLAY && oldGif!=null) {
     background(255,255,255);
     oldGif.display(0,0);
     delay(1000);
   }
   else if (MODE==DIFF) {
-    
+    diffCalled(oldGif.images[0], newGif.images[0]);
   }
   else if (MODE==DIFF_R) {
-    
+    diffCalledRed(oldGif.images[0], newGif.images[0]);
   }
   else if (MODE==DIFF_G) {
-    
+    diffCalledGreen(oldGif.images[0], newGif.images[0]);
   }
   else if (MODE==DIFF_B) {
-    
+    diffCalledBlue(oldGif.images[0], newGif.images[0]);
   }
   
 }

@@ -1,7 +1,7 @@
-byte[] decodeImage(Animation gif) { // works
-  byte[] num = new byte[gif.images[0].width*gif.images[0].height];
+byte[] decodeImage(Animation gif, int n) { // works
+  byte[] num = new byte[gif.images[n].width*gif.images[n].height];
   int byteNum = 0;
-  PImage img = gif.images[0];
+  PImage img = gif.images[n];
   img.loadPixels();
   for (int i=0; i<img.pixels.length; i++) {
     num[byteNum] = (byte)(num[byteNum]<<2);
@@ -39,55 +39,51 @@ byte[] decodeImage(Animation gif) { // works
   
 }
 
-byte[] decodeImageFromGif(Animation gif) { // does not work
-  byte[] num = new byte[gif.images[0].width*gif.images[0].height*1000+100];
-  int byteNum = 0;
-  int tracker = 0;
+byte[] decodeImageFromGif(Animation gif, int distance) {
+  byte[] nums = new byte[distance];
+  int n = 0;
   for (int j=0; j<gif.imageCount; j++) {
     PImage img = gif.images[j];
-    img.loadPixels();
-    for (int i=0; i<img.pixels.length; i++) {
-      num[byteNum] = (byte)(num[byteNum]<<2);
-      num[byteNum] += (byte)(red(img.pixels[i]))&3;
-      if (i%4+tracker%3==1) {
-        byteNum++;
-        if (checker(img, i)) {
-          tracker=-1;
-          break;
-        }
+    for (int i=0; i<distance/3 && i<img.pixels.length; i++) {
+      nums[n] = (byte)(nums[n]<<2);
+      nums[n] += (byte)((int)(red(img.pixels[i]))&3);
+      if (i%4==1) {
+        n++;
       }
-      num[byteNum] = (byte)(num[byteNum]<<2);
-      num[byteNum] += (byte)(green(img.pixels[i]))&3;
-      if (i%4+tracker%3==2) {
-        byteNum++;
-        if (checker(img, i)) {
-          tracker=-1;
-          break;
-        }
+      nums[n] = (byte)(nums[n]<<2);
+      nums[n] += (byte)((int)(green(img.pixels[i]))&3);
+      if (i%4==2) {
+        n++;
       }
-      num[byteNum] = (byte)(num[byteNum]<<2);
-      num[byteNum] += (byte)(blue(img.pixels[i]))&3;
-      if (i%4+tracker%3==3) {
-        byteNum++;
-        if (checker(img, i)) {
-          tracker=-1;
-          break;
-        }
+      nums[n] = (byte)(nums[n]<<2);
+      nums[n] += (byte)((int)(blue(img.pixels[i]))&3);
+      if (i%4==3) {
+        n++;
       }
     }
-    if (tracker==-1) {
-      break;
+    distance-=img.pixels.length*3;
+  }
+  return nums;
+  
+}
+
+void split(byte[][] arr, byte[] arr2, int distance) {
+  int size = 0;
+  int index = 0;
+  byte[] tmp = new byte[distance];
+  for (int i=0; i<arr2.length; i++) {
+    tmp[i-size] = arr2[i];
+    if (i-size==tmp.length-1 && distance!=index-1) {
+      byte[] storage = new byte[tmp.length];
+      for (int j=0; j<tmp.length; j++) {
+        storage[j] = tmp[j];
+      }
+      arr[index] = storage;
+      index++;
+      size=i+1;
+      tmp = new byte[distance];
     }
-    tracker = img.pixels.length%3;
   }
-  
-  byte[] returned = new byte[byteNum];
-  for (int i=0; i<byteNum; i++) {
-    returned[i] = num[i];
-  }
-  
-  return returned;
-  
 }
 
 int change(int tracker) {
