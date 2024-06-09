@@ -37,7 +37,6 @@ public class Animation {
     images = new PImage[1];
 
     images[0] = loadImage(imagePrefix);
-    
   }
 
   void display(float xpos, float ypos) {

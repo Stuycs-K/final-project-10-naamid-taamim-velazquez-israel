@@ -40,7 +40,7 @@ byte[] decodeImage(Animation gif, int n) { // works
 }
 
 byte[] decodeImageFromGif(Animation gif, int distance) {
-  byte[] nums = new byte[distance];
+  byte[] nums = new byte[distance/4];
   int n = 0;
   for (int j=0; j<gif.imageCount; j++) {
     PImage img = gif.images[j];
@@ -60,6 +60,7 @@ byte[] decodeImageFromGif(Animation gif, int distance) {
       if (i%4==3) {
         n++;
       }
+      //println((int)(red(img.pixels[i]))&3);
     }
     distance-=img.pixels.length*3;
   }
@@ -70,6 +71,7 @@ byte[] decodeImageFromGif(Animation gif, int distance) {
 void split(byte[][] arr, byte[] arr2, int distance) {
   int size = 0;
   int index = 0;
+  distance/=4;
   byte[] tmp = new byte[distance];
   for (int i=0; i<arr2.length; i++) {
     tmp[i-size] = arr2[i];

@@ -40,21 +40,9 @@ void modifyFile(Animation gif, int[] parts) {
   int index = 0;
   for (int i=0; i<gif.imageCount; i++) {
     PImage img = gif.images[i];
-    img.loadPixels();
-    int size = gif.images[i].pixels.length;
-    modifyFile(gif.images[i], parts, index);
-    index+=size;
-    if (index>=parts.length/3) {
-      int pixel = (parts.length/3)-index+size+(parts.length%3+2)/3;
-      img.pixels[pixel+1] = color(255,0,0);
-      img.pixels[pixel+2] = color(0,255,0);
-      img.pixels[pixel+3] = color(0,0,255);
-      img.pixels[pixel+4] = color(255,0,0);
-      img.updatePixels();
-      i+=gif.imageCount;
-    }
+    modifyFile(img, parts, index);
+    index+=gif.images[i].pixels.length;
   }
-  
   for (int i=0; i<gif.imageCount;i++) {
     PImage img = gif.images[i];
     img.save("./data/edited/"+ nf(i,5)+".png");
@@ -65,10 +53,6 @@ void modifyFile(PImage img, int[] parts, int index) {
   img.loadPixels();
   int pixel = 0;
   for (int i=index*3; i<parts.length && pixel<img.width*img.height; i+=3) {
-    //print(red(img.pixels[i]) + " " + messageArray[i]+ " ");
-    //int red = (int)(red(img.pixels[i])+(parts[i]-((int)(red(img.pixels[i]))&3)));
-    //img.pixels[i] = color(red, green(img.pixels[i]), blue(img.pixels[i]));
-    //println(red(img.pixels[i]));
     if (i+2<parts.length) {
       int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
       int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
