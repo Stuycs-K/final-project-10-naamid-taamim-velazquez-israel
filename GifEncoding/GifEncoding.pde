@@ -89,6 +89,7 @@ void setup() {
   }
   if (MODE==ENCRYPT) {
     modifyFile(oldGif, parts);
+    println("This is for copout"+parts.length);
   }
   else if (MODE==DECRYPT) {
     if (FILE2==MESSAGE) {
