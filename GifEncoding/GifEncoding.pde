@@ -36,12 +36,13 @@ void setup() {
     int runMessage = -2;
     if (runMessage==-2) {
       args[0] = "4";
-      args[1] = "1";
+      args[1] = "2";
       args[2] = "1";
-      args[3] = "data/tiny.png";
+      args[3] = "data/1sec.mp4";
       args[4] = "1";
       args[5] = "1";
-      args[6] = "data/original.tif";
+      args[6] = "data/decodedImage.png";
+      args[7] = "132";
     }
   }
   MODE = Integer.parseInt(args[0]);
