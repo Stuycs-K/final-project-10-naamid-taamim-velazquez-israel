@@ -5,20 +5,22 @@ public class Animation {
   int frame;
   int[][] nums;
   int[] parts;
+  String file;
   
   public Animation(String imagePrefix, int count) {
     imageCount = count;
     images = new PImage[imageCount];
     nums = new int[imageCount][];
+    file = imagePrefix;
     int size=0;
 
-    for (int i = 0; i < imageCount; i++) {
+    for (int i = 1; i <= imageCount; i++) {
       // Use nf() to number format 'i' into four digits
-      String filename = imagePrefix +nf(i,5) + ".png";
+      String filename = imagePrefix.substring(0, imagePrefix.indexOf(".")) +nf(i,5) + imagePrefix.substring(imagePrefix.indexOf("."));
       //String filename = imagePrefix +".png";
-      images[i] = loadImage(filename);
-      nums[i] = fileToArray(filename);
-      size+=nums[i].length;  
+      images[i-1] = loadImage(filename);
+      nums[i-1] = fileToArray(filename);
+      size+=nums[i-1].length;  
     }
     println(size);
     println(nums[0].length);

@@ -33,7 +33,25 @@ void setup() {
   boolean maybe = true;
   String[] args = new String[9];
   if (maybe) {
-    int runMessage = 7;
+    int runMessage = -2;
+    if (runMessage==-2) {
+      args[0] = "5";
+      args[1] = "3";
+      args[2] = "30";
+      args[3] = "data/normal/originaledit.tif";
+      args[4] = "0";
+      args[5] = "317";
+      args[6] = "terminal";
+    }
+    if (runMessage==-1) {
+      args[0] = "4";
+      args[1] = "0";
+      args[2] = "1";
+      args[3] = "This is an encoded message";
+      args[4] = "3";
+      args[5] = "30";
+      args[6] = "data/normal/original.tif";
+    }
     if (runMessage==0) {
       args[0] = "4"; // MODE
       args[1] = "0"; // file1
@@ -188,11 +206,8 @@ void setup() {
     x = 0;
     y = 0;
   }
-  if (MODE==ENCRYPT && FILE2!=GIF) {
+  if (MODE==ENCRYPT) {
     modifyFile(oldGif, parts);
-  }
-  else if (MODE==ENCRYPT && FILE2==GIF) {
-    modifyGIF(oldGif, parts);
   }
   else if (MODE==DECRYPT) {
     if (FILE2==MESSAGE) {

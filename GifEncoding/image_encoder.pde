@@ -45,7 +45,9 @@ void modifyFile(Animation gif, int[] parts) {
   }
   for (int i=0; i<gif.imageCount;i++) {
     PImage img = gif.images[i];
-    img.save("./data/edited/"+ nf(i,5)+".png");
+    String tmp = gif.file.substring(0, gif.file.indexOf("."))+"edit"+nf(i+1,5)+gif.file.substring(gif.file.indexOf("."));
+    println(tmp);
+    img.save(tmp);
   }
 }
 
