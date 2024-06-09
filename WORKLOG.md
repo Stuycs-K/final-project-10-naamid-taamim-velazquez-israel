@@ -245,3 +245,9 @@ ffmpeg -i gif -compression_level 0 images.png
 ffmpeg -i images.png gif
 
 Also I think that we need to finish encoding/decoding lol
+
+### June 9, 2024 (HW)
+So turns out that GIFs are not lossless... and I don't know how to make them lossless
+THEORETICALLY they should be lossless, but I can't figure out the FFmpeg commands in order to make encoded information actually stick...
+However, good news is that video works and is somehow easier, we just need to pretend like whatever video file they give us doesn't matter and we will work with .avi
+Yipee I also finished presentation.md (not yet, but hopefully by the end of the project I do)

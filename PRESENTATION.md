@@ -14,49 +14,67 @@ If `processing-java` runs and gives you something that works, then you're good.
 
 You also need to download and install FFmpeg!
 
-# Let's Encode a GIF
+# Video Stegonography: A Not Effective But Usable Solution
 
-So, you probably remember that one image processing lab where we encoded images and text and stuff onto other images, but what if we did this with a GIF?
-I mean, theoretically, a GIF is just a series of images, so this shoulnd't be that unreasonable, right?
-Yes, in fact, this is not that unreasonable of a task if you go about it with the right approach.
-However, we must consider some reasons why we are allowed to use GIFs instead of other "video" formats
+## Premise
 
-## Why are GIFs usable?
+If you remember our image stegonography lab that we did on Processing, we encoded stuff onto images.
+This was just encoding and decoding text or images from other images, but this seems kind of limited, no?
+Well, for starters, we only utilized one color channel to encode information onto, meaning the files we encode onto images are very limited in size.
+**<Include a diagram about how small the encoded file has to be in comparison to the original file>**
+But also if we wanted to encode a really large file, say a secret video, then we would need a *really* big image to encode it onto, which seems really suspicious and not particularly realistic.
 
-GIFs are a collection of PNGs, which is really important because it means that GIFs are lossless. This allows us to extract each of the PNGs in a GIF and put them back into a GIF without any shenanigans.
-To do this, we have a variety of options. We can use tools such as FFMpeg or ImageMagick to extract the frames from a GIF for us.
-All we have to do is run a normal command like `convert something.gif something.png`, right? Surely there won't be any foreseeable issue with something this simple?
+The solution to this problem is that we can just encode files onto... multiple images. Shocking solution, I know.
+But it would be really weird to just have a lot of separate images that contain data for a single file, so let's combine them.
+One option is to use GIFs (or are they pronounced GIFs?), but nobody likes those so let's do something that people actually like: videos.
+Theoretically, we should be able to take a video, break it down into individual frames, encode data onto some of those frames, and then patch them back into a video nicely.
 
-Anyways, now that we have frames, we can do our actual editing on these frames. We already did something like this right?
-Yep, if you remember the image processing lab, it now becomes pretty trivial to encrypt data or decrypt data from out images, but let's do it one better.
+## Complications
 
-Isn't it really annoying that you have to encode images signifantly smaller than your original image?
-This is because we only utilized the red color channel, meaning the data we encrypted not only had to be 2 bits of a byte, but that byte was only 1/3 of all the colors shown at all...
-Well, let's change it so that we just put data on all of the color channels. You might argue that this makes it easier to sport if there is secret data encrypted onto something, and you might be right, but if someone can tell that the red channel has been modified anyways, they would probably have been able to detect if the green/blue channels were modified and vise versa.
+Of course this can't be that easy.
+Remember how we were using PNG files for our image processing lab? Specifically how we encoded data exclusively onto PNGs?
+The reason is because PNGs are lossless, meaning that an image will be exactly the same as it was saved as.
+This is unlike other image file extensions, like JPEG, which can have lossy compression. Compresion is usually not noticeable, but it helps a lot with things such as decreasing the file size of your image so a couple images don't take up your entire SSD.
 
-But wait, GIFs! Unlike our image lab, we didn't even consider if data we needed to extract was in multiple images (because that wasn't the task).
-But with GIFs, which are just multiple images stitched together, we can encode even bigger things than just one of our frames can hold by carrying over our data that we need to decrypt between multiple frames!
-We can even encode GIFs onto other GIFs like this! Since we can just encode all the bytes of a GIF onto another GIF, we don't even need to worry about when the frames of the GIF we encode start or end.
+However, for us, this is bad. We need encoded data to remain exactly the same as we left it, or else when we extract it then our output wouldn't be what we encoded in.
+Videos are, unfortuantely, a major advocate for compression, because if uncompressed individual images already take up a lot of space, you can imagine how big a video would be if it contained hundreds or thousands of those images.
 
-However, speaking of the start and ending of decoding, we need to talk about when to stop taking in data for our decrypt mode. 
-The way we did this in the image processing lab is to use the exact number of bytes we expect our output to be. This is an interesting approach, but let's just make an ending sequence.
-An ending sequence is easy to do with text messages since ASCII doesnt use all values of a byte (so something like 1000 0000 is not actual ASCII, and can be used as an ending condition), but is a little more complicated for if things *can* actually hold all values of a byte (like a color value).
-For this... we can just use a simple combination that's unlikely. Something like an all-red pixel then an all-green pixel then an all-blue pixel should suffice. This isn't a *good* solution by any means, but it is *a* solution.
+So in order to be able to encode stuff onto videos and decode that same stuff back properly, we need to find ways to losslessly convert a video into frames and back into a video.
 
-So now, with our edited images and a decoder that is modified alongisde the changes of our encoder, all we have left to do is stitch together the images into a GIF and see if our code works (which it hopefully does, or else this would be really awkward).
+## Basic Logic
 
-# Let's Do Some Video Stuff
+First, we need to know where we're starting. A common video file is .mp4, so we will say that is the original video file we will be given and expected to encode onto *somehow*.
 
-So, GIFs are cool and all, but another form of stitched-together-images is a video.
-Now, this seems like it would be just like GIFs, right? Well, you'd be completely wrong...
+Now, what can we do with this .mp4 to turn it into frames? Well, we can use a tool called FFmpeg. (Fast Forward Moving Picture Experts Group).
+One use of FFmpeg is to take an input ```-i input_file``` and convert it into output files. Something like ```ffmpeg -i original.mp4 temp/original_frames%05d.png``` should suffice into turning it into frames.
+Next, we would theoretically encode data with our modified encoder, which will be improved (more on that later), onto our frames.
+Finally, we can turn these frames back into a .mp4 with something like ```ffmpeg -i temp/original_frames%05d.png modified.mp4```.
+Our new video modified.mp4 should now have our encoded information, so now we can decode it.
+We can use FFmpeg to extract our frames again with something like ```ffmpeg -i modified.mp4 temp/modified_frames%05d.png```
+Finally, we can decode information from those frames, save it as a file, and boom, we are done!
 
-## Why are videos harder than GIFs?
+That was really simple, right? Surely we don't need to avoid any of that lossless conversion stuff right..? Oh, turns out almost everything in these commands is lossy...
 
-Isn't it cool how videos, despite having a whole lot of frames of images, can be so small in file size?
-Well its because the video is compressed, meaning images and audio are left *around* the same.
-But *around* the same does not mean that it *is* the same, and compression means that you lose data, meaning that it is really hard to encode data because it can straight up be lost.
+## But I Thought PNGs were lossless?
 
-## Compression
+So now, with our 
 
-This means we need to avoid compression at all costs at every step of our procedures, which is an interesting task because usually with video compression, the idea is to compress things as much as possible but maintain an acceptable level of output.
-ImageMagick will no longer
+# INSERT SOMETHING ABOUT ENCODING
+
+## The mp4 is a Lie
+
+So now we can just turn our encoded images back into a mp4 right? Well yes, we could, but we don't want to do that.
+This is because, despite what Google may occassionally tell you, mp4 is usually a lossy format.
+**<Insert screenshots of Google saying that mp4 is both lossy and lossless>**
+
+Why is there confusion about whether or not mp4 is lossy? Well, its because mp4 files themselves aren't inherently lossy, but are usually used in conjunction with a lossy video codec.
+A codec in general is a tool that compresses files in order to make them smaller and therefore more usable. For videos, we usually refer to 2 codecs: a video codec (which compresses visuals) and an audio codec (which compresses sound). For this assignment, we will only focus on the video codec aspect of things (however, since we **will** get video codec to work, we could technically collaborate with another group that does focus on audio codecs and encode onto both the sound and visuals of a video).
+Anyways, mp4 files are usually used with lossy codecs (although they can handle lossless codecs). This makes sense with its popularity because lossless codecs cannot compress data very well and are generally much larger, meaning they are generally less efficient to use.
+SO while we could theoretically use mp4 files, it would be easier if we just used a video format that more commonly uses lossless codecs.
+
+So, what video format will we be using? Let's use .avi!
+.avi stands for Audio Video Interleave, and it is more commonly associated with the lossless conversions that we will want to use for our encoding and decoding processes, so it will be easier to find support on how to do things.
+As for the video codec we will be using is FFV1, or Fast Forward Codec Version 1, which was developed specifically to go with FFmpeg.
+FFV1 is a lossless video codec, so now, we should be able to actually continue onto getting the frames of our video.
+
+# INSERT SOMETHING ABOUT DECODING
