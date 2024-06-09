@@ -72,3 +72,30 @@ void modifyFile(PImage img, int[] parts, int index) {
   }
   img.updatePixels();
 }
+
+void modifyGIF(Animation gif, int[] parts) {
+  int index = 0; int red; int green; int blue;
+  for (int j=0; j<gif.imageCount; j++) {
+    PImage img = gif.images[j];
+    int pixel = 0;
+    for (int i=index; pixel<img.pixels.length && i<parts.length; i+=3) {
+      red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
+      if (i+2<index) {
+        green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
+        blue = (int)(blue(img.pixels[pixel])+(parts[i+2]-((int)(blue(img.pixels[pixel]))&3)));
+      }
+      else if (i+1<index) {
+        green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
+        blue = (int)blue(img.pixels[pixel]);
+      }
+      else {
+        green = (int)green(img.pixels[pixel]);
+        blue = (int)blue(img.pixels[pixel]);
+      }
+      img.pixels[pixel] = color(red, green, blue);
+      pixel++;
+      index = i+3;
+    }
+  }
+  println(index-3);
+}

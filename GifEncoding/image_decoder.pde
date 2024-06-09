@@ -161,3 +161,33 @@ String convertToBits(int num) {//works
   }
   return "00";
 }
+
+
+byte[] officialDecodeGif(Animation gif, int num) {
+  byte[] arr = new byte[num/4];
+  int index = 0;
+  int byteNum = 0;
+  for (int j=0; j<gif.imageCount; j++) {
+    PImage img = gif.images[j];
+    int pixel = 0;
+    for (int i=index; i<img.pixels.length && i*3<num; i++) {
+      arr[byteNum] = (byte)(arr[byteNum]<<2);
+      arr[byteNum] += (byte)((int)(red(img.pixels[pixel]))&3);
+      if (i%4==1) {
+        byteNum++;
+      }
+      arr[byteNum] = (byte)(arr[byteNum]<<2);
+      arr[byteNum] += (byte)((int)(green(img.pixels[pixel]))&3);
+      if (i%4==2) {
+        byteNum++;
+      }
+      arr[byteNum] = (byte)(arr[byteNum]<<2);
+      arr[byteNum] += (byte)((int)(blue(img.pixels[pixel]))&3);
+      if (i%4==3) {
+        byteNum++;
+      }
+      index=i+1;
+    }
+  }
+  return arr;
+}

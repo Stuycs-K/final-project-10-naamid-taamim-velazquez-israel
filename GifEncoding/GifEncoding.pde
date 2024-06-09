@@ -30,7 +30,7 @@ void setup() {
   //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto) (int copout)
   //                                                  0            1             2               3                  4                 5               6                      7
   //processing-java --sketch="./GifEncoding/" --run 4 0 1 "This is a message" 1 1 0-
-  boolean maybe = false;
+  boolean maybe = true;
   String[] args = new String[9];
   if (maybe) {
     int runMessage = 7;
@@ -188,8 +188,11 @@ void setup() {
     x = 0;
     y = 0;
   }
-  if (MODE==ENCRYPT) {
+  if (MODE==ENCRYPT && FILE2!=GIF) {
     modifyFile(oldGif, parts);
+  }
+  else if (MODE==ENCRYPT && FILE2==GIF) {
+    modifyGIF(oldGif, parts);
   }
   else if (MODE==DECRYPT) {
     if (FILE2==MESSAGE) {
@@ -225,7 +228,7 @@ void setup() {
     //  y=oldGif.images[0].height;
     //}
     else if (FILE==GIF) {
-      
+      officialDecodeGif(newGif, Integer.parseInt(args[7]));
     }
     else {
       byte[] arr;
