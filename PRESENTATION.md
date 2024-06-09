@@ -22,11 +22,13 @@ If you remember our image stegonography lab that we did on Processing, we encode
 This was just encoding and decoding text or images from other images, but this seems kind of limited, no?
 Well, for starters, we only utilized one color channel to encode information onto, meaning the files we encode onto images are very limited in size.
 **<Include a diagram about how small the encoded file has to be in comparison to the original file>**
+![Three different Channels](imagesForPresentation/colors.png)
+
 But also if we wanted to encode a really large file, say a secret video, then we would need a *really* big image to encode it onto, which seems really suspicious and not particularly realistic.
 
 The solution to this problem is that we can just encode files onto... multiple images. Shocking solution, I know.
 But it would be really weird to just have a lot of separate images that contain data for a single file, so let's combine them.
-One option is to use GIFs (or are they pronounced GIFs?), but nobody likes those so let's do something that people actually like: videos.
+One option is to use GIFs (or are they pronounced GIFs?), **Addition, Have them debate about this for HW** but nobody likes those so let's do something that people actually like: videos.
 Theoretically, we should be able to take a video, break it down into individual frames, encode data onto some of those frames, and then patch them back into a video nicely.
 
 ## Complications
@@ -60,12 +62,14 @@ That was really simple, right? Surely we don't need to avoid any of that lossles
 So now, with our 
 
 # INSERT SOMETHING ABOUT ENCODING
+Idk what you mean
 
 ## The mp4 is a Lie
 
 So now we can just turn our encoded images back into a mp4 right? Well yes, we could, but we don't want to do that.
 This is because, despite what Google may occassionally tell you, mp4 is usually a lossy format.
 **<Insert screenshots of Google saying that mp4 is both lossy and lossless>**
+![This is awful](imagesForPresentation/notQuiteLossless.png)
 
 Why is there confusion about whether or not mp4 is lossy? Well, its because mp4 files themselves aren't inherently lossy, but are usually used in conjunction with a lossy video codec.
 A codec in general is a tool that compresses files in order to make them smaller and therefore more usable. For videos, we usually refer to 2 codecs: a video codec (which compresses visuals) and an audio codec (which compresses sound). For this assignment, we will only focus on the video codec aspect of things (however, since we **will** get video codec to work, we could technically collaborate with another group that does focus on audio codecs and encode onto both the sound and visuals of a video).
