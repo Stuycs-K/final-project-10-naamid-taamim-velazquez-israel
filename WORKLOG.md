@@ -84,11 +84,34 @@ I still need to be able to end the encrption whenever so then I need a closing s
 moved some stuff from the setup to the draw
 Need to finish Decrypt
 
-### 5/31/24 GW
+### 5/31/24 HW
 Finished Encryption
 Encryption now needs red, green, blue, and then a red pixel back to back at the very end
 I find this hughly improbably to find in a file naturally, so imma keep it
 decrypt comes next
+
+### 6/3/24
+Encrypt also works with gifs now, forgot to do that earlier
+Pasting run command here: processing-java --sketch="./GifEncoding/" --run (int mode) (int file_type) (int frame) (string encodefile) (int file_type2) (int frame2) (string encodeInto)
+Need to fix encyrpting
+
+### 6/3/24 HW
+Ahh, white pixels overtook my images somehow
+encryption code seems to be broken. or background. it's verg trippy all honesty
+
+### 6/5/24
+Started working encryption for images, seems to work when encyrpting. Gonna start on decrypting to make sure lmao
+Made sure Encrypt was compatible with decrypt. It seems to work with messages. I'm starting to work on a function to tell the decoder when to stop for both images/gifs and messages. 
+
+### 6/5/24 HW
+Decrypt for text needs to have the check for "11111111" at the end of thr encryption
+a much harder one to check for is the image all red, green, blue, red pixels back to back. But I'll manage
+
+### 6/5/24
+Testing decrypt text. Should soon be working
+jhgvljshdabvkshqljrbveliwqybv
+Lot of things to focus on. My brain seems to have fried. Will work a lot on this later to make sure I don't fail Taamim
+Need to save to a new image, need to make sure to have a print message, need to fix decode/encrypt. AHHH
 
 ## GROUP MEMBER 2: Taamim Naamid
 
