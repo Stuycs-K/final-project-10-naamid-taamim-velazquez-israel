@@ -100,12 +100,12 @@ void setup() {
     }
     else if (runMessage==7) {
       args[0] = "5"; // MODE
-      args[1] = "1"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/normal/cat.png"; // encodeInto
-      args[4] = "3"; // file2
-      args[5] = "30"; // frame2
-      args[6] = "./data/normal/normal"; // encodedInto
+      args[1] = "3"; // file1
+      args[2] = "30"; // frame1
+      args[3] = "./data/normal/normal"; // encodeInto
+      args[4] = "1"; // file2
+      args[5] = "1"; // frame2
+      args[6] = "./data/normal/cats.png"; // encodedInto
     }
   }
   MODE = Integer.parseInt(args[0]);
@@ -134,14 +134,14 @@ void setup() {
     parts = new int[2];
   }
   
-  if (FILE2==GIF) {
+  if (FILE2==GIF && MODE!=DECRYPT) {
     //String filename = args[6].substring(0, args[6].indexOf("."));
     String filename = args[6];
     oldGif = new Animation(filename, Integer.parseInt(args[5]));
     x = oldGif.images[0].width;
     y = oldGif.images[0].height;
   }
-  else if (FILE2==IMG) {
+  else if (FILE2==IMG && MODE!=DECRYPT) {
     oldGif = new Animation(args[6]);
     x=oldGif.images[0].width;
     y=oldGif.images[0].height;
@@ -209,268 +209,6 @@ void keyPressed() {
  if (MODE>DIFF) {
    MODE=DISPLAY;
  }
-}
-
-int [] messageToArray(String s) {
-  int[]parts = new int[s.length() * 4+4]; //optionally include the terminating character here.
-  //calculate the array
-  for (int i=0; i<s.length(); i++) {
-    char c = s.charAt(i);
-    char tmp = 128;
-    for (int j=0; j<4; j++) {
-      if ((c&tmp)!=0) {
-         parts[i*4+j]=2;
-         c-=tmp;
-      }
-      tmp/=2;
-      if ((c&tmp)!=0) {
-         parts[i*4+j]+=1;
-         c-=tmp;
-      }
-      tmp/=2;
-    }
-  }
-  for (int i=0; i<4; i++) {
-    parts[s.length()*4+i]=3; 
-  }
-  
-  return parts;
-}
-
-int[] fileToArray(String name) {
-   byte[] b = loadBytes(name);
-   int[] arr = new int[b.length*4];
-   for (int i=0; i<b.length; i++) {
-     arr[i*4] = ((b[i]&128)/64) + (b[i]&64)/64;
-     arr[i*4+1] = ((b[i]&32)/16) + (b[i]&16)/16;
-     arr[i*4+2] = ((b[i]&8)/4) + (b[i]&4)/4;
-     arr[i*4+3] = ((b[i]&2)) + (b[i]&1);
-   }
-   return arr;
-}
-
-void modifyFile(Animation gif, int[] parts) {
-  int index = 0;
-  for (int i=0; i<gif.imageCount; i++) {
-    PImage img = gif.images[i];
-    int size = gif.images[i].width*gif.images[i].height;
-    modifyFile(gif.images[i], parts, index);
-    index+=size;
-    if (index>=parts.length) {
-      img.loadPixels();
-      //println((parts.length/3)-+size+(parts.length%3+2)/3);
-      //println(index);
-      //println(size);
-      int pixel = (parts.length/3)-index+size+(parts.length%3+2)/3;
-      img.pixels[pixel+1] = color(255,0,0);
-      img.pixels[pixel+2] = color(0,255,0);
-      img.pixels[pixel+3] = color(0,0,255);
-      img.pixels[pixel+4] = color(255,0,0);
-      img.updatePixels();
-      i+=gif.imageCount;
-    }
-  }
-  
-  for (int i=0; i<gif.imageCount;i++) {
-    PImage img = gif.images[i];
-    img.save("./data/edited/"+ nf(i,5)+".png");
-  }
-}
-
-byte[] decodeImage(Animation gif) {
-  byte[] num = new byte[gif.images[0].width*gif.images[0].height];
-  int byteNum = 0;
-  PImage img = gif.images[0];
-  img.loadPixels();
-  for (int i=0; i<img.pixels.length; i++) {
-    num[byteNum] = (byte)(num[byteNum]<<2);
-    num[byteNum] += (byte)(red(img.pixels[i]))&3;
-    if (i%4==1) {
-      byteNum++;
-      if (checker(img, i)) {
-        break;
-      }
-    }
-    num[byteNum] = (byte)(num[byteNum]<<2);
-    num[byteNum] += (byte)(green(img.pixels[i]))&3;
-    if (i%4==2) {
-      byteNum++;
-      if (checker(img, i)) {
-        break;
-      }
-    }
-    num[byteNum] = (byte)(num[byteNum]<<2);
-    num[byteNum] += (byte)(blue(img.pixels[i]))&3;
-    if (i%4==3) {
-      byteNum++;
-      if (checker(img, i)) {
-        break;
-      }
-    }
-  }
-  
-  byte[] returned = new byte[byteNum];
-  for (int i=0; i<byteNum; i++) {
-    returned[i] = num[i];
-  }
-  
-  return returned;
-  
-}
-
-byte[] decodeImageFromGif(Animation gif) {
-  byte[] num = new byte[gif.images[0].width*gif.images[0].height*1000+100];
-  int byteNum = 0;
-  int tracker = 0;
-  for (int j=0; j<gif.imageCount; j++) {
-    PImage img = gif.images[j];
-    img.loadPixels();
-    for (int i=0; i<img.pixels.length; i++) {
-      num[byteNum] = (byte)(num[byteNum]<<2);
-      num[byteNum] += (byte)(red(img.pixels[i]))&3;
-      if (i%4+tracker%3==1) {
-        byteNum++;
-        if (checker(img, i)) {
-          break;
-        }
-      }
-      num[byteNum] = (byte)(num[byteNum]<<2);
-      num[byteNum] += (byte)(green(img.pixels[i]))&3;
-      if (i%4+tracker%3==2) {
-        byteNum++;
-        if (checker(img, i)) {
-          break;
-        }
-      }
-      num[byteNum] = (byte)(num[byteNum]<<2);
-      num[byteNum] += (byte)(blue(img.pixels[i]))&3;
-      if (i%4+tracker%3==3) {
-        byteNum++;
-        if (checker(img, i)) {
-          break;
-        }
-      }
-    }
-    tracker = img.pixels.length%3;
-  }
-  
-  byte[] returned = new byte[byteNum];
-  for (int i=0; i<byteNum; i++) {
-    returned[i] = num[i];
-  }
-  
-  return returned;
-  
-}
-
-
-
-
-
-
-int change(int tracker) {
-  if (tracker==3) {
-    return 0;
-  }
-  return tracker+1;
-}
-
-boolean checker(PImage img, int index) {
-  return (int)(red(img.pixels[index]))==255 && (int)(red(img.pixels[index+3]))==255 && (int)(blue(img.pixels[index+2]))==255 && (int)(green(img.pixels[index+1]))==255;
-}
-
-void modifyFile(PImage img, int[] parts, int index) {
-  img.loadPixels();
-  int pixel = 0;
-  for (int i=index*3; i<parts.length && pixel<img.width*img.height; i+=3) {
-    //print(red(img.pixels[i]) + " " + messageArray[i]+ " ");
-    //int red = (int)(red(img.pixels[i])+(parts[i]-((int)(red(img.pixels[i]))&3)));
-    //img.pixels[i] = color(red, green(img.pixels[i]), blue(img.pixels[i]));
-    //println(red(img.pixels[i]));
-    if (i+2<parts.length) {
-      int red = (int)(red(img.pixels[pixel])+
-      (parts[i]-
-      ((int)(red(img.pixels[pixel]))&3)));
-      int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
-      int blue = (int)(blue(img.pixels[pixel])+(parts[i+2]-((int)(blue(img.pixels[pixel]))&3)));
-      img.pixels[pixel] = color(red, green, blue);
-    }
-    else if (i+1<parts.length) {
-      int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
-      int green = (int)(green(img.pixels[pixel])+(parts[i+1]-((int)(green(img.pixels[pixel]))&3)));
-      img.pixels[pixel] = color(red, green, blue(img.pixels[pixel]));
-    }
-    else if (i<parts.length) {
-      int red = (int)(red(img.pixels[pixel])+(parts[i]-((int)(red(img.pixels[pixel]))&3)));
-      img.pixels[pixel] = color(red, green(img.pixels[pixel]), blue(img.pixels[pixel]));
-    }
-    pixel++;
-  }
-
-  img.updatePixels();
-}
-
-String decodeText(PImage img) {
-  img.loadPixels();
-  String end = "";
-  String bit = "";
-  for (int i=0; i<img.pixels.length; i++) {
-    int red = (int)(red(img.pixels[i]))&3;
-    int green = (int)(green(img.pixels[i]))&3;
-    int blue = (int)(blue(img.pixels[i]))&3;
-    bit += convertToBits(red) + convertToBits(green) + convertToBits(blue);
-    if (bit.length()>=8) {
-      if (!bit.substring(0,8).equals("11111111")) {
-        end += (char)(Byte.parseByte(bit.substring(0, 8),2));
-        bit = bit.substring(8);
-      }
-      else {
-        i+=img.pixels.length;
-      }
-    }
-  }
-  return end;
-}
-
-String decodeTextGif(Animation gif) {
-  String end = "";
-  String bit = "";
-  for (int i=0; i<gif.imageCount; i++) {
-    PImage img = gif.images[i];
-    img.loadPixels();
-    for (int j=0; j<img.pixels.length; j++) {
-      int red = (int)(red(img.pixels[j]))&3;
-      int green = (int)(green(img.pixels[j]))&3;
-      int blue = (int)(blue(img.pixels[j]))&3;
-      bit += convertToBits(red) + convertToBits(green) + convertToBits(blue);
-      if (bit.length()>=8) {
-        if (!bit.substring(0,8).equals("11111111")) {
-          end += (char)(Byte.parseByte(bit.substring(0, 8),2));
-          bit = bit.substring(8);
-        }
-        else {
-          j+=img.pixels.length;
-          i+=gif.imageCount;
-        }
-      }
-    }
-  }
-  
-  
-  return end;
-}
-
-String convertToBits(int num) {
-  if (num==3) {
-    return "11";
-  }
-  else if (num==2) {
-    return "10";
-  }
-  else if (num==1) {
-    return "01";
-  }
-  return "00";
 }
 
 void modifyVideo(int[] parts) {
