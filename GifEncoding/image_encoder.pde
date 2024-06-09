@@ -39,6 +39,9 @@ int[] fileToArray(String name) {
 void modifyFile(Animation gif, int[] parts) {
   int index = 0;
   for (int i=0; i<gif.imageCount; i++) {
+    if (i>=1) {
+      println("Encoded file is too big to fit in a single image, moving onto the next");
+    }
     PImage img = gif.images[i];
     modifyFile(img, parts, index);
     index+=gif.images[i].pixels.length;

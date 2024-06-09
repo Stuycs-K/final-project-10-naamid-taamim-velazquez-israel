@@ -164,29 +164,72 @@ String convertToBits(int num) {//works
 
 
 byte[] officialDecodeGif(Animation gif, int num) {
-  byte[] arr = new byte[num/4];
+  //byte[] arr = new byte[num];
+  //int index = 0;
+  //int byteNum = 0;
+  //for (int j=0; j<gif.imageCount; j++) {
+  //  PImage img = gif.images[j];
+  //  int pixel = 0;
+  //  for (int i=index; i<img.pixels.length && i*3<num; i++) {
+  //    arr[byteNum] = (byte)(arr[byteNum]<<2);
+  //    arr[byteNum] += (byte)((int)(red(img.pixels[pixel]))&3);
+  //    if (i%4==1) {
+  //      byteNum++;
+  //    }
+  //    arr[byteNum] = (byte)(arr[byteNum]<<2);
+  //    arr[byteNum] += (byte)((int)(green(img.pixels[pixel]))&3);
+  //    if (i%4==2) {
+  //      byteNum++;
+  //    }
+  //    arr[byteNum] = (byte)(arr[byteNum]<<2);
+  //    arr[byteNum] += (byte)((int)(blue(img.pixels[pixel]))&3);
+  //    if (i%4==3) {
+  //      byteNum++;
+  //    }
+  //    index=i+1;
+  //  }
+  //}
+  
+  byte[] arr = new byte[num];
   int index = 0;
-  int byteNum = 0;
-  for (int j=0; j<gif.imageCount; j++) {
-    PImage img = gif.images[j];
-    int pixel = 0;
-    for (int i=index; i<img.pixels.length && i*3<num; i++) {
-      arr[byteNum] = (byte)(arr[byteNum]<<2);
-      arr[byteNum] += (byte)((int)(red(img.pixels[pixel]))&3);
-      if (i%4==1) {
-        byteNum++;
+  byte byteHolder = 0;
+  int bits = 0;
+  for (int i=0;i<gif.imageCount;i++) {
+    PImage img = gif.images[i];
+    for (int j=0;j<img.pixels.length;j++) {
+      byteHolder*=4;
+      byteHolder+=(byte)((int)(red(img.pixels[j]))&3);
+      bits+=2;
+      if (bits==8) {
+        arr[index] = byteHolder;
+        byteHolder = 0;
+        bits = 0;
+        index++;
       }
-      arr[byteNum] = (byte)(arr[byteNum]<<2);
-      arr[byteNum] += (byte)((int)(green(img.pixels[pixel]))&3);
-      if (i%4==2) {
-        byteNum++;
+      byteHolder*=4;
+      byteHolder+=(byte)((int)(green(img.pixels[j]))&3);
+      bits+=2;
+      if (bits==8) {
+        arr[index] = byteHolder;
+        byteHolder = 0;
+        bits = 0;
+        index++;
       }
-      arr[byteNum] = (byte)(arr[byteNum]<<2);
-      arr[byteNum] += (byte)((int)(blue(img.pixels[pixel]))&3);
-      if (i%4==3) {
-        byteNum++;
+      byteHolder*=4;
+      byteHolder+=(byte)((int)(blue(img.pixels[j]))&3);
+      bits+=2;
+      if (bits==8) {
+        arr[index] = byteHolder;
+        byteHolder = 0;
+        bits = 0;
+        index++;
       }
-      index=i+1;
+      if (index==num) {
+        break;
+      }
+    } 
+    if (index==num)  {
+      break;
     }
   }
   return arr;
