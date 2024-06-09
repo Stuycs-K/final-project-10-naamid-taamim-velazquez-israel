@@ -35,133 +35,13 @@ void setup() {
   if (maybe) {
     int runMessage = -2;
     if (runMessage==-2) {
-      args[0] = "5";
-      args[1] = "3";
-      args[2] = "30";
-      args[3] = "data/normal/originaledit.tif";
-      args[4] = "0";
-      args[5] = "317";
-      args[6] = "terminal";
-    }
-    if (runMessage==-1) {
       args[0] = "4";
-      args[1] = "0";
+      args[1] = "1";
       args[2] = "1";
-      args[3] = "This is an encoded message";
-      args[4] = "3";
-      args[5] = "30";
-      args[6] = "data/normal/original.tif";
-    }
-    if (runMessage==0) {
-      args[0] = "4"; // MODE
-      args[1] = "0"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "This is a message"; // encodeInto
-      args[4] = "1"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "./data/normal/cat.png"; // encodedInto
-    }
-    else if (runMessage==1) {
-      args[0] = "5"; // MODE
-      args[1] = "1"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/edited/00000.png"; // encoded
-      args[4] = "0"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "terminal"; // decodeInto
-    }
-    else if (runMessage==2) {
-      args[0] = "4"; // MODE
-      args[1] = "0"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "This is a message"; // encodeInto
-      args[4] = "3"; // file2
-      args[5] = "30"; // frame2
-      args[6] = "./data/normal/normal"; // encodedInto
-    }
-    else if (runMessage==3) {
-      args[0] = "5"; // MODE
-      args[1] = "3"; // file1
-      args[2] = "30"; // frame1
-      args[3] = "./data/edited/"; // encodeInto
-      args[4] = "0"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "terminal"; // encodedInto
-    }
-    else if (runMessage==4) {
-      args[0] = "4"; // MODE
-      args[1] = "1"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/normal/normal00000.png"; // encodeInto
-      args[4] = "1"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "./data/normal/cat.png"; // encodedInto
-    }
-    else if (runMessage==5) {
-      args[0] = "5"; // MODE
-      args[1] = "1"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/edited/00000.png"; // encodeInto
-      args[4] = "1"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "./data/normal/returned.png"; // encodedInto
-    }
-    else if (runMessage==6) { // Not working: image onto gif
-      args[0] = "4"; // MODE
-      args[1] = "1"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/normal/cat.png"; // encodeInto
-      args[4] = "3"; // file2
-      args[5] = "30"; // frame2
-      args[6] = "./data/normal/normal"; // encodedInto
-    }
-    else if (runMessage==7) { // not working: image from gif
-      args[0] = "5"; // MODE
-      args[1] = "3"; // file1
-      args[2] = "30"; // frame1
-      args[3] = "./data/normal/normal"; // encodeInto
-      args[4] = "1"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "./data/normal/cats.png"; // encodedInto
-      args[7] = "116280"; // Amount of bytes
-    }
-    else if (runMessage==8) { // gif onto image
-      args[0] = "4"; // MODE
-      args[1] = "2"; // file1
-      args[2] = "30"; // frame1
-      args[3] = "./data/help.gif"; // encodeInto
-      args[4] = "1"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "./data/normal/big.png"; // encodedInto
-    }
-    else if (runMessage==9) { // gif from image
-      args[0] = "5"; // MODE
-      args[1] = "1"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/edited/00000.png"; // encodeInto
-      args[4] = "2"; // file2
-      args[5] = "30"; // frame2
-      args[6] = "./data/normal/cats.gif"; // encodedInto
-      args[7] = "5804408"; //How big parts is
-    }
-    else if (runMessage==10) { // gif onto image
-      args[0] = "4"; // MODE
-      args[1] = "2"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/ffmpeg.mp4"; // encodeInto
-      args[4] = "1"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "./data/normal/big.png"; // encodedInto
-    }
-    else if (runMessage==11) { // gif from image
-      args[0] = "5"; // MODE
-      args[1] = "1"; // file1
-      args[2] = "1"; // frame1
-      args[3] = "./data/edited/00000.png"; // encodeInto
-      args[4] = "2"; // file2
-      args[5] = "1"; // frame2
-      args[6] = "./data/blah.mp4"; // encodedInto
-      args[7] = "11452"; //How big parts is
+      args[3] = "data/tiny.png";
+      args[4] = "1";
+      args[5] = "1";
+      args[6] = "data/original.tif";
     }
   }
   MODE = Integer.parseInt(args[0]);
