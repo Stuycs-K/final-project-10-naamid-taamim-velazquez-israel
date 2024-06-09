@@ -6,27 +6,27 @@ int SELECTIVE = 1;
 int FILE = 2;
 int DIFF = 3;
 int TEST = 4;
-int MODE = TEST;
-int FILEBYTES = 100576;
-String OGFILENAME = "original01.png";
-String EDITEDFILENAME = "edited01.png";
+int MODE = FILE;
+int FILEBYTES = 132;
+String OGFILENAME = "original.tif";
+String EDITEDFILENAME = "testing.tif";
 color BLACK = color(0);
 color WHITE = color(255);
 PImage image1;
 PImage image2;
 int diffMode = 0;
 boolean ENCODE = false;
-boolean DECODE = false;
+boolean DECODE = true;
 
 //Note: for code that runs one time place all code in setup.
 void setup() {
   size(640, 360); // big cat / space
   //size(263,256); // grumpy cat
   //0. If you want to change the size to display the image you can print the dimensions here:
-  //println(img.width,img.height);
 
   image1 = loadImage(OGFILENAME);
   image2 = loadImage(EDITEDFILENAME);
+  //println(image1.width,image1.height);
 
   //e
   //1. Add the cat.png file to the sketch before running.
@@ -38,7 +38,7 @@ void setup() {
     String messageToEncode = "This is a message encoded using LSBSteganography. There are two modes that can be selected. This text is getting longer but is just used to make more pixels different.";
     //String messageToEncode = "To be honest, I don't really know what I'm doing. This should be working, though, shouldn't it? Doesn't conceptually make sense why it wouldn't.";
     //String messageToEncode = "This";
-    String fileToEncode = "inputfile.png";
+    String fileToEncode = "tiny.png";
     int[] parts = new int[0];
     if (MODE==LINEAR) {
       parts = messageToArray(messageToEncode);
@@ -72,8 +72,8 @@ void setup() {
     println(decoded);
   }
   if (MODE==TEST) {
-    byte byteHolder1[] = loadBytes("timerv1.avi");
-    byte byteHolder2[] = loadBytes("timerv2.avi");
+    byte byteHolder1[] = loadBytes("v2.gif");
+    byte byteHolder2[] = loadBytes("v3.gif");
     print(byteHolder1.length+" "+byteHolder2.length);
     boolean test = true;
     for (int i=0;i<byteHolder1.length;i++) {
@@ -86,6 +86,13 @@ void setup() {
     if (test) {
       print("\nYO THEY THE SAME");
     }
+    
+    //PImage img = loadImage("help.png");
+    //loadPixels();
+    //for (int i=0;i<pixels.length;i++) {
+    //  pixels[i] = color(255,0,0);
+    //} updatePixels();
+    //save("HELP.png");
   }
 }
 int [] messageToArray(String s) {
