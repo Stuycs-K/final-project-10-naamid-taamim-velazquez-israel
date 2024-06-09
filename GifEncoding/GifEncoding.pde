@@ -33,7 +33,7 @@ void setup() {
   boolean maybe = true;
   String[] args = new String[7];
   if (maybe) {
-    int runMessage = 5;
+    int runMessage = 7;
     if (runMessage==0) {
       args[0] = "4"; // MODE
       args[1] = "0"; // file1
@@ -88,6 +88,24 @@ void setup() {
       args[4] = "1"; // file2
       args[5] = "1"; // frame2
       args[6] = "./data/normal/cat.png"; // encodedInto
+    }
+    else if (runMessage==6) {
+      args[0] = "4"; // MODE
+      args[1] = "1"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "./data/normal/cat.png"; // encodeInto
+      args[4] = "3"; // file2
+      args[5] = "30"; // frame2
+      args[6] = "./data/normal/normal"; // encodedInto
+    }
+    else if (runMessage==7) {
+      args[0] = "5"; // MODE
+      args[1] = "1"; // file1
+      args[2] = "1"; // frame1
+      args[3] = "./data/normal/cat.png"; // encodeInto
+      args[4] = "3"; // file2
+      args[5] = "30"; // frame2
+      args[6] = "./data/normal/normal"; // encodedInto
     }
   }
   MODE = Integer.parseInt(args[0]);
@@ -144,10 +162,16 @@ void setup() {
         print(decodeTextGif(newGif));
       }
     }
-    else if (FILE2==IMG) {
-      byte[] arr = decodeImage(newGif);
-      saveBytes("00000.png",arr);
-      oldGif=new Animation("00000.png");
+    else {
+      byte[] arr;
+      if (FILE2==IMG) {
+        arr = decodeImage(newGif);
+      }
+      else {
+        arr = decodeImageFromGif(newGif);
+      }
+      saveBytes(args[6],arr);
+      oldGif=new Animation(args[6]);
       x = oldGif.images[0].width;
       y=oldGif.images[0].height;
     }
@@ -293,6 +317,56 @@ byte[] decodeImage(Animation gif) {
   return returned;
   
 }
+
+byte[] decodeImageFromGif(Animation gif) {
+  byte[] num = new byte[gif.images[0].width*gif.images[0].height*1000+100];
+  int byteNum = 0;
+  int tracker = 0;
+  for (int j=0; j<gif.imageCount; j++) {
+    PImage img = gif.images[j];
+    img.loadPixels();
+    for (int i=0; i<img.pixels.length; i++) {
+      num[byteNum] = (byte)(num[byteNum]<<2);
+      num[byteNum] += (byte)(red(img.pixels[i]))&3;
+      if (i%4+tracker%3==1) {
+        byteNum++;
+        if (checker(img, i)) {
+          break;
+        }
+      }
+      num[byteNum] = (byte)(num[byteNum]<<2);
+      num[byteNum] += (byte)(green(img.pixels[i]))&3;
+      if (i%4+tracker%3==2) {
+        byteNum++;
+        if (checker(img, i)) {
+          break;
+        }
+      }
+      num[byteNum] = (byte)(num[byteNum]<<2);
+      num[byteNum] += (byte)(blue(img.pixels[i]))&3;
+      if (i%4+tracker%3==3) {
+        byteNum++;
+        if (checker(img, i)) {
+          break;
+        }
+      }
+    }
+    tracker = img.pixels.length%3;
+  }
+  
+  byte[] returned = new byte[byteNum];
+  for (int i=0; i<byteNum; i++) {
+    returned[i] = num[i];
+  }
+  
+  return returned;
+  
+}
+
+
+
+
+
 
 int change(int tracker) {
   if (tracker==3) {
