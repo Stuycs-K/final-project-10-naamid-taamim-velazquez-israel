@@ -22,8 +22,8 @@ public class Animation {
       nums[i-1] = fileToArray(filename);
       size+=nums[i-1].length;  
     }
-    println(size);
-    println(nums[0].length);
+    //println(size);
+    //println(nums[0].length);
     parts = new int[size];
     int tmp = 0;
     for (int i=0; i<nums.length; i++) {
