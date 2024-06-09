@@ -45,7 +45,7 @@ So in order to be able to encode stuff onto videos and decode that same stuff ba
 
 First, we need to know where we're starting. A common video file is .mp4, so we will say that is the original video file we will be given and expected to encode onto *somehow*.
 
-Now, what can we do with this .mp4 to turn it into frames? Well, we can use a tool called FFmpeg.
+Now, what can we do with this .mp4 to turn it into frames? Well, we can use a tool called FFmpeg. (Fast Forward Moving Picture Experts Group).
 One use of FFmpeg is to take an input ```-i input_file``` and convert it into output files. Something like ```ffmpeg -i original.mp4 temp/original_frames%05d.png``` should suffice into turning it into frames.
 Next, we would theoretically encode data with our modified encoder, which will be improved (more on that later), onto our frames.
 Finally, we can turn these frames back into a .mp4 with something like ```ffmpeg -i temp/original_frames%05d.png modified.mp4```.
@@ -55,13 +55,26 @@ Finally, we can decode information from those frames, save it as a file, and boo
 
 That was really simple, right? Surely we don't need to avoid any of that lossless conversion stuff right..? Oh, turns out almost everything in these commands is lossy...
 
+## But I Thought PNGs were lossless?
+
+So now, with our 
+
+# INSERT SOMETHING ABOUT ENCODING
+
 ## The mp4 is a Lie
 
-Let's start at the start, with our original.mp4 file.
-Before we move on to the next step, this is ALREADY A PROBLEM.
+So now we can just turn our encoded images back into a mp4 right? Well yes, we could, but we don't want to do that.
 This is because, despite what Google may occassionally tell you, mp4 is usually a lossy format.
 **<Insert screenshots of Google saying that mp4 is both lossy and lossless>**
 
 Why is there confusion about whether or not mp4 is lossy? Well, its because mp4 files themselves aren't inherently lossy, but are usually used in conjunction with a lossy video codec.
 A codec in general is a tool that compresses files in order to make them smaller and therefore more usable. For videos, we usually refer to 2 codecs: a video codec (which compresses visuals) and an audio codec (which compresses sound). For this assignment, we will only focus on the video codec aspect of things (however, since we **will** get video codec to work, we could technically collaborate with another group that does focus on audio codecs and encode onto both the sound and visuals of a video).
-Anyways, 
+Anyways, mp4 files are usually used with lossy codecs (although they can handle lossless codecs). This makes sense with its popularity because lossless codecs cannot compress data very well and are generally much larger, meaning they are generally less efficient to use.
+SO while we could theoretically use mp4 files, it would be easier if we just used a video format that more commonly uses lossless codecs.
+
+So, what video format will we be using? Let's use .avi!
+.avi stands for Audio Video Interleave, and it is more commonly associated with the lossless conversions that we will want to use for our encoding and decoding processes, so it will be easier to find support on how to do things.
+As for the video codec we will be using is FFV1, or Fast Forward Codec Version 1, which was developed specifically to go with FFmpeg.
+FFV1 is a lossless video codec, so now, we should be able to actually continue onto getting the frames of our video.
+
+# INSERT SOMETHING ABOUT DECODING
