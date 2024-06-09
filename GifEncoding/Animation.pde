@@ -37,7 +37,7 @@ public class Animation {
   public Animation(String imagePrefix) {
     imageCount = 1;
     images = new PImage[1];
-    file - imagePrefix
+    file - imagePrefix;
     images[0] = loadImage(imagePrefix);
   }
 
