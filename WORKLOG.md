@@ -113,6 +113,9 @@ jhgvljshdabvkshqljrbveliwqybv
 Lot of things to focus on. My brain seems to have fried. Will work a lot on this later to make sure I don't fail Taamim
 Need to save to a new image, need to make sure to have a print message, need to fix decode/encrypt. AHHH
 
+### 6/10/24 HW
+Presentation done; Everything works, all is happy across this land. Do not question the men behind the curtain
+
 ## GROUP MEMBER 2: Taamim Naamid
 
 ### May 22, 2024
