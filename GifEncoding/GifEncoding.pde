@@ -33,20 +33,96 @@ void setup() {
   boolean maybe = true;
   String[] args = new String[9];
   if (maybe) {
-    int runMessage = -3;
+    int runMessage =0;
     
-    if (runMessage==-4) {
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    runMessage = -10;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    if (runMessage==-10) { //Cat.png onto idk.mp4
       args[0] = "4";
       args[1] = "1";
       args[2] = "1";
-      args[3] = "data/tiny.png";
+      args[3] = "data/normal/temp/cat.png";
       args[4] = "3";
       args[5] = "30";
       args[6] = "data/normal/image.tif";
       //args[7] = "19206";
     }
     // decode video
-    if (runMessage==-3) {
+    if (runMessage==-9) { //Cat.png onto idk.mp4
+      args[0] = "5";
+      args[1] = "3";
+      args[2] = "30";
+      args[3] = "data/normal/temp/imageedit.tif";
+      args[4] = "1";
+      args[5] = "1";
+      args[6] = "data/catReturned.png";
+      args[7] = "132";
+    }
+    
+    if (runMessage==-8) { //blah.mp4 onto 1sec.mp4
+      args[0] = "4";
+      args[1] = "2";
+      args[2] = "1";
+      args[3] = "data/blah.mp4";
+      args[4] = "3";
+      args[5] = "30";
+      args[6] = "data/normal/image.tif";
+      //args[7] = "19206";
+    }
+    // decode video
+    if (runMessage==-7) {
+      args[0] = "5";
+      args[1] = "3";
+      args[2] = "30";
+      args[3] = "data/temp/imageedit.tif";
+      args[4] = "2";
+      args[5] = "1";
+      args[6] = "data/returnedBlah.mp4";
+      args[7] = "132";
+    }
+    
+    if (runMessage==-6) {//help.gif onto big.png
+      args[0] = "4";
+      args[1] = "2";
+      args[2] = "1";
+      args[3] = "data/help.gif";
+      args[4] = "3";
+      args[5] = "30";
+      args[6] = "data/normal/temp/big.png";
+      //args[7] = "19206";
+    }
+    // decode video
+    if (runMessage==-5) {//help.gif onto big.png
       args[0] = "5";
       args[1] = "3";
       args[2] = "30";
@@ -58,26 +134,26 @@ void setup() {
     }
     
     // encode video
-    if (runMessage==-2) {
+    if (runMessage==-4) { //"Hello there world, this is an encoded image" onto cat.png
       args[0] = "4";
-      args[1] = "2";
+      args[1] = "0";
       args[2] = "1";
-      args[3] = "data/1sec.mp4";
+      args[3] = "Hello there world, this is an encoded image";
       args[4] = "3";
       args[5] = "30";
-      args[6] = "data/temp/original.tif";
+      args[6] = "data/normal/temp/cat.png";
       //args[7] = "19206";
     }
     // decode video
-    if (runMessage==-1) {
+    if (runMessage==-3) { //"Hello there world, this is an encoded image (Keyboard gibberish" onto cat.png
       args[0] = "5";
       args[1] = "3";
       args[2] = "30";
-      args[3] = "data/temp/originaledit.tif";
+      args[3] = "data/normal/temp/catedit.png";
       args[4] = "2";
       args[5] = "1";
-      args[6] = "data/secretVideo.mp4";
-      args[7] = "19206";
+      args[6] = "terminal";
+      //args[7] = "19206";
     }
   }
   MODE = Integer.parseInt(args[0]);
