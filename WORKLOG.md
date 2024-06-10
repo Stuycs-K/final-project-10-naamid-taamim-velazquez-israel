@@ -251,3 +251,7 @@ So turns out that GIFs are not lossless... and I don't know how to make them los
 THEORETICALLY they should be lossless, but I can't figure out the FFmpeg commands in order to make encoded information actually stick...
 However, good news is that video works and is somehow easier, we just need to pretend like whatever video file they give us doesn't matter and we will work with .avi
 Yipee I also finished presentation.md (not yet, but hopefully by the end of the project I do)
+
+### June 10, 2024 (HW)
+
+We finally finished... after years... also finished video editing and stuff, just need to wait for youtube upload to finish...
