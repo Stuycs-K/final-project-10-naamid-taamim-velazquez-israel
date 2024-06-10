@@ -41,6 +41,9 @@ void modifyFile(Animation gif, int[] parts) {
   for (int i=0; i<gif.imageCount; i++) {
     if (i>=1) {
       println("Encoded file is too big to fit in a single image, moving onto the next");
+      if (i==gif.imageCount-1) {
+         println("Dude the file youre trying to encode is way too big comparative to what you're trying to encode it onto...");
+      }
     }
     PImage img = gif.images[i];
     modifyFile(img, parts, index);
