@@ -45,6 +45,13 @@ void modifyFile(Animation gif, int[] parts) {
     PImage img = gif.images[i];
     modifyFile(img, parts, index);
     index+=gif.images[i].pixels.length;
+    if (index>=parts.length) {
+      break;
+    }
+    if (i==gif.imageCount-1) {
+      println("Your images are too big. Please try again with a smaller image. Thank youuuuu");
+      exit();
+    }
   }
   for (int i=0; i<gif.imageCount;i++) {
     PImage img = gif.images[i];

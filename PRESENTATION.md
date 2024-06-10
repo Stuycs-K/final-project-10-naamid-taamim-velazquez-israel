@@ -61,7 +61,7 @@ That was really simple, right? Surely we don't need to avoid any of that lossles
 
 So now, with our 
 
-# INSERT SOMETHING ABOUT ENCODING
+# Encoding Process
 So let's look at how exactly to use our program
 Now, as Mr K told you guys, in order to run a processing file, you would type
 
@@ -70,12 +70,58 @@ processing-java --sketch="./GifEncoding" --run
 However, this is a bit limited. What if we included some arguments? Wait you can do that? Yeah it's cool isn't it?
 The way you add arguments is by adding words after "--run". Doing so will add an argument per space you have, much like in java. This is very useful considering we're not allowed to show any code at all
 
+So what are our arguments you might ask? Oh boy do we have a lot of them. Let's get right into it shall we?
+
+For starters, we have our most important argument. **MODE**
+**MODE** determines what exactly our program will do. Here's a breif list, which I will explain shortly
+
+**MODE** | Value | Usage 
+ --- |  ---  | ---
+Encrypt | 4 (Yes) | This **MODE** allows us to encrypt a file into another file, or *files*, hiding amongst the rgb channels
+Decrypt | 5 | This **MODE** allows us to decrypt a file from a different file, showing us the hidden messages we might be missing
+Display | 6 | displays the first file you inputted into the program
+DIFF_R | 7 | Shows the difference between the red channels in two different files
+DIFF_G | 8 | Shows the difference between the green channels in two different files
+DIFF_B | 9 | Shows the difference between the blue channels in two different files
+DIFF | 10 | Shows the difference between all rgb channels in two different files
+
+Now you might think this is a lot to keep track of. But don't worry, we have more for you to worry about ;D
+
+the second argument, is us asking you the file type. Which should be simple, non?
+
+FILE_TYPE | VALUE | MEANING
+--- | --- | ---
+Message | 0 | This file is a message, this can only be encrypted into a file
+Image | 1 | This file is an image, this can be encrypted into, or can encrypt into a different file
+Miscellanious | 2 | This file can be any file type supported by processing <details> <summary> Click here to reveal types</summary> JPG, jpg, tiff, bmp, BMP, gif, GIF, WBMP, png, PNG, JPEG, tif, TIF, TIFF, wbmp, jpeg </details>
+Png/Tiff Army| 3 | This file(s) can be encoded into, but are not very friendly when it comes to joining a different file
+
+But wait! There's more! Following this up, there's also a frames argument, which is needed irregardless of whether you're using the army FILE_TYPE, but won't affect anything unless you're using FILE_TYPE 3. 
+For this, you need to have n files with the same prefix, same extension, and only a difference in numbers inbetween those
+
+for example, the frames argument could have a value of "3", for the files: "test00001.tiff", "test00002.tiff", and "test00003.tiff". It always starts at 1, and always ends at n, the number you put in the argument
+
+Well, that seems like all right? WRONG, you forgot to include the filename silly, how are you supposed to open a file without that? This needs to be from the perspective of the ./GifEncoding/ directory.
+
+But wait, there's even more. This is only 1 file, you need 2 files for every mode. So in the end, your command should look as follows to encode
+
+processing-java --sketch="./GifEncoding/" --run 4 (int FILE_TYPE_TO_ENCODE) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_ENCODE_INTO) (int Frame_count2) (String filename2)
+
+Once your code is done running, it should automatically change your **MODE** to display, allowing you to automatically see what the encypted file looks like. It should realistically looks the same as before, but a file lurks within. Make sure to press space to cycle between the different **MODES** (not including Encyrpt/Decrypt)
+
+Well then, now that that's out of the way, let's move on shall we?
+
+
 ## The mp4 is a Lie
 
 So now we can just turn our encoded images back into a mp4 right? Well yes, we could, but we don't want to do that.
 This is because, despite what Google may occassionally tell you, mp4 is usually a lossy format.
 **<Insert screenshots of Google saying that mp4 is both lossy and lossless>**
+
+
 ![This is awful](imagesForPresentation/notQuiteLossless.png)
+![Double Down](imagesForPresentation/image.png)
+
 
 Why is there confusion about whether or not mp4 is lossy? Well, its because mp4 files themselves aren't inherently lossy, but are usually used in conjunction with a lossy video codec.
 A codec in general is a tool that compresses files in order to make them smaller and therefore more usable. For videos, we usually refer to 2 codecs: a video codec (which compresses visuals) and an audio codec (which compresses sound). For this assignment, we will only focus on the video codec aspect of things (however, since we **will** get video codec to work, we could technically collaborate with another group that does focus on audio codecs and encode onto both the sound and visuals of a video).
@@ -87,4 +133,13 @@ So, what video format will we be using? Let's use .avi!
 As for the video codec we will be using is FFV1, or Fast Forward Codec Version 1, which was developed specifically to go with FFmpeg.
 FFV1 is a lossless video codec, so now, we should be able to actually continue onto getting the frames of our video.
 
-# INSERT SOMETHING ABOUT DECODING
+# Decoding Process
+
+Hey guys, I mostly explained everything last time. However, I never really told you how to format a decryption did I?
+When you want to decrypt, it's a bit different than encrypting. Shocker isn't it? This time, we won't need an existing 2nd file, but it should be what you expect to decode out of the original file. Format it like this:
+
+processing-java --sketch="./GifEncoding/" --run 4 (int FILE_TYPE_TO_DECRYPT) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_SAVE_DECRYPTION_AS) (int Frame_count2) (String filename2) (int copout)
+
+Wait wait wait. Hold on a second there. What's this mysterious copout variable I seemed to have added into this expression?
+Well I'm glad you asked! See, originally we wanted to decode an image without having to resort to a "copout", otherwise known as 'printing the amount of bytes encoded, and then using that to decode it'. However, it's very neccessary for our code to run unfortunately. Think of this like the same number Mr K had us use earlier in the year with image_encode/decode.
+When you encode, it'll print out some bytes for you so you know what number to include there.
