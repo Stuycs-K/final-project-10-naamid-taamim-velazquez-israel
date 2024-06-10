@@ -33,7 +33,7 @@ void setup() {
   boolean maybe = true;
   String[] args = new String[9];
   if (maybe) {
-    int runMessage = -4;
+    int runMessage = -3;
     
     if (runMessage==-4) {
       args[0] = "4";
@@ -42,7 +42,7 @@ void setup() {
       args[3] = "data/tiny.png";
       args[4] = "3";
       args[5] = "30";
-      args[6] = "data/temp/original.tif";
+      args[6] = "data/normal/image.tif";
       //args[7] = "19206";
     }
     // decode video
@@ -54,7 +54,7 @@ void setup() {
       args[4] = "1";
       args[5] = "1";
       args[6] = "data/secretcat.png";
-      args[7] = "1840982";
+      args[7] = "132";
     }
     
     // encode video
