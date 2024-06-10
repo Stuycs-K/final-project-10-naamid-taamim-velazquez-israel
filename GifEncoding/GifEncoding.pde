@@ -30,8 +30,8 @@ void setup() {
   //processing-java --sketch="./GifEncoding/" --run (int mode) (int file_decoded) (int frames) (string encodedfile) (int file_decoded) (int frames2) (string decodedInto) (int copout)
   //                                                  0            1             2               3                  4                 5               6                      7
   //processing-java --sketch="./GifEncoding/" --run 4 0 1 "This is a message" 1 1 0-
-  boolean maybe = true;
-  String[] args = new String[9];
+  boolean maybe = false;
+  //String[] args = new String[9];
   if (maybe) {
     int runMessage =0;
     

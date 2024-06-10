@@ -119,7 +119,7 @@ Well, that seems like all right? WRONG, you forgot to include the filename silly
 
 But wait, there's even more. This is only 1 file, you need 2 files for every mode. So in the end, your command should look as follows to encode
 
-processing-java --sketch="./GifEncoding/" --run 4 (int FILE_TYPE_TO_ENCODE) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_ENCODE_INTO) (int Frame_count2) (String filename2)
+processing-java --sketch=$(PWD)/GifEncoding --run 4 (int FILE_TYPE_TO_ENCODE) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_ENCODE_INTO) (int Frame_count2) (String filename2)
 
 Once your code is done running, it should automatically change your **MODE** to display, allowing you to automatically see what the encypted file looks like. It should realistically looks the same as before, but a file lurks within. Make sure to press space to cycle between the different **MODES** (not including Encyrpt/Decrypt)
 
@@ -152,7 +152,7 @@ FFV1 is a lossless video codec, so now, we should be able to actually glue toget
 Hey guys, I mostly explained everything last time. However, I never really told you how to format a decryption did I?
 When you want to decrypt, it's a bit different than encrypting. Shocker isn't it? This time, we won't need an existing 2nd file, but it should be what you expect to decode out of the original file. Format it like this:
 
-processing-java --sketch="./GifEncoding/" --run 4 (int FILE_TYPE_TO_DECRYPT) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_SAVE_DECRYPTION_AS) (int Frame_count2) (String filename2) (int copout)
+processing-java --sketch=$(PWD)/GifEncoding --run 5 (int FILE_TYPE_TO_DECRYPT) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_SAVE_DECRYPTION_AS) (int Frame_count2) (String filename2) (int copout)
 
 Wait wait wait. Hold on a second there. What's this mysterious copout variable I seemed to have added into this expression?
 Well I'm glad you asked! See, originally we wanted to decode an image without having to resort to a "copout", otherwise known as 'printing the amount of bytes encoded, and then using that to decode it'. However, it's very neccessary for our code to run unfortunately. Think of this like the same number Mr K had us use earlier in the year with image_encode/decode.
