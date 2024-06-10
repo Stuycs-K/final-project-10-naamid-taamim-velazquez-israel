@@ -1,18 +1,4 @@
-# This document is required.
-
-In order to run processing-java, to my knowledge, you need to add it to your PATH.
-This can be done by downloading another processing folder, then:
-## Windows
-- Going to Environment Variables
-- Editing PATH and adding it as a variable
-## Ubuntu
-- Use `nano ~/.bashrc`
-- At the very end of the file, add a little command that looks like
-- `export PATH="<PATH TO PROCESSING FOLDER>:$PATH"`
-Note: The processing-java file must live with processing.exe
-If `processing-java` runs and gives you something that works, then you're good.
-
-You also need to download and install FFmpeg!
+[Presentation Video](https://youtu.be/ui2EVS3BS-M)
 
 # Video Stegonography: A Not Effective But Usable Solution
 
@@ -48,11 +34,11 @@ So in order to be able to encode stuff onto videos and decode that same stuff ba
 First, we need to know where we're starting. A common video file is .mp4, so we will say that is the original video file we will be given and expected to encode onto *somehow*.
 
 Now, what can we do with this .mp4 to turn it into frames? Well, we can use a tool called FFmpeg. (Fast Forward Moving Picture Experts Group).
-One use of FFmpeg is to take an input ```-i input_file``` and convert it into output files. Something like ```ffmpeg -i original.mp4 temp/original_frames%05d.png``` should suffice into turning it into frames.
+One use of FFmpeg is to take an input `-i input_file` and convert it into output files. Something like``ffmpeg -i original.mp4 temp/original_frames%05d.pn`` should suffice into turning it into frames.
 Next, we would theoretically encode data with our modified encoder, which will be improved (more on that later), onto our frames.
-Finally, we can turn these frames back into a .mp4 with something like ```ffmpeg -i temp/original_frames%05d.png modified.mp4```.
+Finally, we can turn these frames back into a .mp4 with something like``ffmpeg -i temp/original_frames%05d.png modified.mp4`.
 Our new video modified.mp4 should now have our encoded information, so now we can decode it.
-We can use FFmpeg to extract our frames again with something like ```ffmpeg -i modified.mp4 temp/modified_frames%05d.png```
+We can use FFmpeg to extract our frames again with something like `ffmpeg -i modified.mp4 temp/modified_frames%05d.png`
 Finally, we can decode information from those frames, save it as a file, and boom, we are done!
 
 That was really simple, right? Surely we don't need to avoid any of that lossless conversion stuff right..? Oh, turns out almost everything in these commands is lossy...
@@ -65,7 +51,7 @@ There are some issues with using mp4 as a whole... but that's not an issue until
 As we know from the image processing lab, we encoded data onto PNGs because they're lossless. This is really good because it means the data we encrypt will not change due to compression, and we can decode that data when needed.
 
 Well let's just extract those pngs from the mp4 right? Well... not exactly
-Even with ```-compression_level 0``` giving you uncompressed png files from a mp4, this process will not work because the conversion from png to mp4 is not exactly lossless (from testing, there are very minor changes, but any minor changes means the data we encrypted is now compromised). This means we can either look for an alternative video output file or an alternative image output file... or maybe both.
+Even with``-compression_level 0` giving you uncompressed png files from a mp4, this process will not work because the conversion from png to mp4 is not exactly lossless (from testing, there are very minor changes, but any minor changes means the data we encrypted is now compromised). This means we can either look for an alternative video output file or an alternative image output file... or maybe both.
 
 For now, let's just consider an alternative output file. PNGs are very common, but you may have also heard of JPG? Well those aren't any better (sometimes worse), so let's keep looking. 
 When looking for lossless image output files, one that you'll come across is TIF (or TIFF, they are literally the same thing).
@@ -79,7 +65,7 @@ So, lossy conversion crisis avoided for now, but unfortunately, turning out TIF 
 So let's look at how exactly to use our program
 Now, as Mr K told you guys, in order to run a processing file, you would type
 
-processing-java --sketch="./GifEncoding" --run
+`processing-java --sketch="./GifEncoding" --run`
 
 However, this is a bit limited. What if we included some arguments? Wait you can do that? Yeah it's cool isn't it?
 The way you add arguments is by adding words after "--run". Doing so will add an argument per space you have, much like in java. This is very useful considering we're not allowed to show any code at all
@@ -119,7 +105,7 @@ Well, that seems like all right? WRONG, you forgot to include the filename silly
 
 But wait, there's even more. This is only 1 file, you need 2 files for every mode. So in the end, your command should look as follows to encode
 
-processing-java --sketch=$(PWD)/GifEncoding --run 4 (int FILE_TYPE_TO_ENCODE) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_ENCODE_INTO) (int Frame_count2) (String filename2)
+`processing-java --sketch=$(PWD)/GifEncoding --run 4 (int FILE_TYPE_TO_ENCODE) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_ENCODE_INTO) (int Frame_count2) (String filename2)`
 
 Once your code is done running, it should automatically change your **MODE** to display, allowing you to automatically see what the encypted file looks like. It should realistically looks the same as before, but a file lurks within. Make sure to press space to cycle between the different **MODES** (not including Encyrpt/Decrypt)
 
@@ -152,7 +138,7 @@ FFV1 is a lossless video codec, so now, we should be able to actually glue toget
 Hey guys, I mostly explained everything last time. However, I never really told you how to format a decryption did I?
 When you want to decrypt, it's a bit different than encrypting. Shocker isn't it? This time, we won't need an existing 2nd file, but it should be what you expect to decode out of the original file. Format it like this:
 
-processing-java --sketch=$(PWD)/GifEncoding --run 5 (int FILE_TYPE_TO_DECRYPT) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_SAVE_DECRYPTION_AS) (int Frame_count2) (String filename2) (int copout)
+`processing-java --sketch=$(PWD)/GifEncoding --run 5 (int FILE_TYPE_TO_DECRYPT) (int Frame_count1) (String filename1) (int FILE_TYPE_TO_SAVE_DECRYPTION_AS) (int Frame_count2) (String filename2) (int copout)`
 
 Wait wait wait. Hold on a second there. What's this mysterious copout variable I seemed to have added into this expression?
 Well I'm glad you asked! See, originally we wanted to decode an image without having to resort to a "copout", otherwise known as 'printing the amount of bytes encoded, and then using that to decode it'. However, it's very neccessary for our code to run unfortunately. Think of this like the same number Mr K had us use earlier in the year with image_encode/decode.
