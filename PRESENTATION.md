@@ -59,7 +59,10 @@ That was really simple, right? Surely we don't need to avoid any of that lossles
 
 ## But I Thought PNGs were lossless?
 
-So now, with our 
+So, let's talk about those basic steps. Specifically, for how we turn our mp4 into frames.
+There are some issues with using mp4 as a whole... but that's not an issue until we actually need to put our frames back into a video. 
+ 
+So, as we know from the image processing lab, we encoded data onto PNGs because they're lossless. This is really good because it means the data we encrypt will not change due to compression, and we can decode that data when needed.
 
 # INSERT SOMETHING ABOUT ENCODING
 So let's look at how exactly to use our program
