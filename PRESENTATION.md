@@ -26,8 +26,8 @@ Well, for starters, we only utilized one color channel to encode information ont
 
 But also if we wanted to encode a really large file, say a secret video, then we would need a *really* big image to encode it onto, which seems really suspicious and not particularly realistic.
 
-The solution to this problem is that we can just encode files onto... multiple images. Shocking solution, I know.
-But it would be really weird to just have a lot of separate images that contain data for a single file, so let's combine them.
+**The solution to this problem is that we can just encode files onto... multiple images. Shocking solution, I know.
+But it would be really weird to just have a lot of separate images that contain data for a single file, so let's combine them.** Might want to change this if our code doesn't work
 One option is to use GIFs (or are they pronounced GIFs?), **Addition, Have them debate about this for HW** but nobody likes those so let's do something that people actually like: videos.
 Theoretically, we should be able to take a video, break it down into individual frames, encode data onto some of those frames, and then patch them back into a video nicely.
 
@@ -62,7 +62,13 @@ That was really simple, right? Surely we don't need to avoid any of that lossles
 So now, with our 
 
 # INSERT SOMETHING ABOUT ENCODING
-Idk what you mean
+So let's look at how exactly to use our program
+Now, as Mr K told you guys, in order to run a processing file, you would type
+
+processing-java --sketch="./GifEncoding" --run
+
+However, this is a bit limited. What if we included some arguments? Wait you can do that? Yeah it's cool isn't it?
+The way you add arguments is by adding words after "--run". Doing so will add an argument per space you have, much like in java. This is very useful considering we're not allowed to show any code at all
 
 ## The mp4 is a Lie
 
