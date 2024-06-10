@@ -58,4 +58,4 @@ You can add arguments to the command by running:
 "processing-java --sketch=$(PWD)/GifEncoding --run (int mode) (int FILE_TYPE) (int Frames) (String filename) (int FILE_TYPE) (int frames) (String filename)
 What do these variables mean you may ask? I explain all of this in the [Presentation.md](PRESENTATION.md), which is linked here. in the Encoding Process section
 
-Video will be attached here --> 
+Video can be found on [Google Drive](https://drive.google.com/file/d/1dOM2_Q48wBHdOtsYB62wtqTG4hrdoTik/view?usp=sharing) or [YouTube](https://youtu.be/ui2EVS3BS-M)
