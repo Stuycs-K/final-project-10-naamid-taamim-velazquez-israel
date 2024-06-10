@@ -1,18 +1,3 @@
-In order to run processing-java, to my knowledge, you need to add it to your PATH.
-This can be done by downloading another processing folder, then:
-## Windows
-- Going to Environment Variables
-- Editing PATH and adding it as a variable
-## Ubuntu
-- Use `nano ~/.bashrc`
-- At the very end of the file, add a little command that looks like
-- `export PATH="<PATH TO PROCESSING FOLDER>:$PATH"`
-Note: The processing-java file must live with processing.exe
-
-You also need to download and install [FFmpeg](https://ffmpeg.org/download.html)!
-
-If `processing-java` and `ffmpeg` are recognized commands and visually do the right thing, you're good.
-
 [Presentation Video](https://youtu.be/ui2EVS3BS-M)
 
 # Video Stegonography: A Not Effective But Usable Solution
