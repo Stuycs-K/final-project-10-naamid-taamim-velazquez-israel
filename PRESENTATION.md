@@ -59,10 +59,21 @@ That was really simple, right? Surely we don't need to avoid any of that lossles
 
 ## But I Thought PNGs were lossless?
 
-So, let's talk about those basic steps. Specifically, for how we turn our mp4 into frames.
+Let's talk about those basic steps. Specifically, for how we turn our mp4 into frames.
 There are some issues with using mp4 as a whole... but that's not an issue until we actually need to put our frames back into a video. 
  
-So, as we know from the image processing lab, we encoded data onto PNGs because they're lossless. This is really good because it means the data we encrypt will not change due to compression, and we can decode that data when needed.
+As we know from the image processing lab, we encoded data onto PNGs because they're lossless. This is really good because it means the data we encrypt will not change due to compression, and we can decode that data when needed.
+
+Well let's just extract those pngs from the mp4 right? Well... not exactly
+Even with ```-compression_level 0``` giving you uncompressed png files from a mp4, this process will not work because the conversion from png to mp4 is not exactly lossless (from testing, there are very minor changes, but any minor changes means the data we encrypted is now compromised). This means we can either look for an alternative video output file or an alternative image output file... or maybe both.
+
+For now, let's just consider an alternative output file. PNGs are very common, but you may have also heard of JPG? Well those aren't any better (sometimes worse), so let's keep looking. 
+When looking for lossless image output files, one that you'll come across is TIF (or TIFF, they are literally the same thing).
+TIF / TIFF stands for Tagged Image File Format, and is not a nickname.
+What is the difference between a TIF file and a PNG file, when both are lossless images? Well the main one that we need is that it can hold far more information than PNGs do. This is the precision image file that you would use when you want pixel-perfect images, which is exactly what we need. Using TIFF files, we can get the exact frames from our mp4 and encode onto those.
+
+So, lossy conversion crisis avoided for now, but unfortunately, turning out TIF images back into an mp4 isn't particularly an intuitive solution. More on this later after we talk about encoding images.
+
 
 # Encoding Process
 So let's look at how exactly to use our program
@@ -90,7 +101,7 @@ DIFF | 10 | Shows the difference between all rgb channels in two different files
 
 Now you might think this is a lot to keep track of. But don't worry, we have more for you to worry about ;D
 
-the second argument, is us asking you the file type. Which should be simple, non?
+The second argument, is us asking you the file type. Which should be simple, no?
 
 FILE_TYPE | VALUE | MEANING
 --- | --- | ---
@@ -117,8 +128,8 @@ Well then, now that that's out of the way, let's move on shall we?
 
 ## The mp4 is a Lie
 
-So now we can just turn our encoded images back into a mp4 right? Well yes, we could, but we don't want to do that.
-This is because, despite what Google may occassionally tell you, mp4 is usually a lossy format.
+So now we can just turn our encoded TIF images back into a mp4 right? Well yes, we could, but we don't want to do that.
+This is because, despite what Google may occassionally tell you, mp4 is *usually* a lossy format.
 **<Insert screenshots of Google saying that mp4 is both lossy and lossless>**
 
 
@@ -134,11 +145,8 @@ SO while we could theoretically use mp4 files, it would be easier if we just use
 So, what video format will we be using? Let's use .avi!
 .avi stands for Audio Video Interleave, and it is more commonly associated with the lossless conversions that we will want to use for our encoding and decoding processes, so it will be easier to find support on how to do things.
 As for the video codec we will be using is FFV1, or Fast Forward Codec Version 1, which was developed specifically to go with FFmpeg.
-FFV1 is a lossless video codec, so now, we should be able to actually continue onto getting the frames of our video.
+FFV1 is a lossless video codec, so now, we should be able to actually glue together our modified frames into a cohesive video.
 
-<<<<<<< HEAD
-# INSERT SOMETHING ABOUT DECODING
-=======
 # Decoding Process
 
 Hey guys, I mostly explained everything last time. However, I never really told you how to format a decryption did I?
@@ -149,4 +157,3 @@ processing-java --sketch="./GifEncoding/" --run 4 (int FILE_TYPE_TO_DECRYPT) (in
 Wait wait wait. Hold on a second there. What's this mysterious copout variable I seemed to have added into this expression?
 Well I'm glad you asked! See, originally we wanted to decode an image without having to resort to a "copout", otherwise known as 'printing the amount of bytes encoded, and then using that to decode it'. However, it's very neccessary for our code to run unfortunately. Think of this like the same number Mr K had us use earlier in the year with image_encode/decode.
 When you encode, it'll print out some bytes for you so you know what number to include there.
->>>>>>> 8cfd85d88504138e58df885ffff53f882847cf76
